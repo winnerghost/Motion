@@ -1,0 +1,30 @@
+{
+  "name": "pip-explains",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Code-driven motion graphics engine for a daily facts Shorts/Reels channel.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "node scripts/render.mjs",
+    "typecheck": "tsc --noEmit",
+    "stills": "node scripts/stills.mjs",
+    "sfx": "python3 scripts/make_sfx.py"
+  },
+  "dependencies": {
+    "@fontsource/bricolage-grotesque": "^5.3.0",
+    "@fontsource/fredoka": "^5.3.0",
+    "@remotion/cli": "^4.0.546",
+    "@remotion/fonts": "^4.0.546",
+    "@remotion/media-utils": "^4.0.546",
+    "@remotion/noise": "^4.0.546",
+    "@remotion/shapes": "^4.0.546",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.546"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
