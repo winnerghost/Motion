@@ -2,6 +2,7 @@
 
 Ready-made images in this folder:
 - `profile-picture-1080.png`: profile picture for **both** Instagram and YouTube (it is the real Pip from the videos).
+- `youtube-watermark-150.png`: YouTube video watermark (150×150 PNG, under YouTube's 1 MB limit).
 - `youtube-banner-2560x1440.png`: YouTube banner. All the text and Pip sit inside the 1546×423 area that phones show.
 
 ---
@@ -22,8 +23,7 @@ Use the same name, picture and handle everywhere, so people recognize you on eve
 
 ## Instagram
 
-- **Username:** `@pipexplains`
-  - If it's taken: `@pip.explains`, `@pipexplains.facts`, `@askpip.facts`
+- **Username:** `@pip.explainsfacts` ✅ (live: https://www.instagram.com/pip.explainsfacts)
 - **Name field** (this field is searchable, so the keyword helps people find you): `Pip Explains | Daily Facts`
 - **Account type:** Professional → Creator
 - **Category:** Education
@@ -34,14 +34,13 @@ Use the same name, picture and handle everywhere, so people recognize you on eve
   ✅ Real science, real sources
   👇 New fact every day
   ```
-- **Link:** your YouTube channel
+- **Link:** https://www.youtube.com/@pipexplainsfacts
 - **Story highlights** (once you have stories): Brain · Body · Animals · Space · Sources
 
 ## YouTube
 
 - **Channel name:** `Pip Explains`
-- **Handle:** `@PipExplains`
-  - If it's taken: `@PipExplainsFacts`, `@AskPip`
+- **Handle:** `@pipexplainsfacts` ✅ (live: https://www.youtube.com/@pipexplainsfacts)
 - **Description** (474 of 1000 characters):
   ```
   Ever wondered why you can't tickle yourself? Why your fingers wrinkle in water? What would happen if the Moon disappeared?
@@ -57,12 +56,22 @@ Use the same name, picture and handle everywhere, so people recognize you on eve
 
   📩 Business enquiries: [your business email]
   ```
-- **Links:** Instagram
+- **Links:** `Instagram` → https://www.instagram.com/pip.explainsfacts
 - **Keywords** (Studio → Settings → Channel → Basic info):
   `facts, fun facts, science facts, did you know, explained, animated explainer, brain facts, body facts, curiosity, why, educational shorts, Pip Explains`
 - **Audience:** Studio → Settings → Channel → Advanced settings → **"No, set this channel as not made for kids"**
 - **Upload defaults:** Category **Education** · Language **English**
-- **Video watermark:** Customization → Branding → use `profile-picture-1080.png`
+- **Video watermark:** Customization → Profile → Video watermark → upload `youtube-watermark-150.png` (150×150, 28 KB; YouTube's limit is 1 MB) → display time: Entire video
+- **Upload description template** (Settings → Upload defaults):
+  ```
+  Sources:
+  •
+
+  🟠 A new fact every day. Subscribe!
+  📸 Instagram: @pip.explainsfacts
+
+  #facts #science #didyouknow
+  ```
 
 ## First upload: EP001
 
@@ -77,6 +86,8 @@ Every time you move, your brain predicts exactly what you're about to feel, and 
 Sources:
 • Blakemore, Wolpert & Frith (1998), Nature Neuroscience
 • Blakemore, Frith & Wolpert (1999), Journal of Cognitive Neuroscience
+
+📸 Instagram: @pip.explainsfacts
 
 #facts #science #brain #didyouknow #shorts
 ```
