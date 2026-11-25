@@ -215,11 +215,13 @@ const Eye: React.FC<{
   );
 };
 
-export const Pip: React.FC<{pose: Partial<PipPose>; t: number; id?: string}> = ({
-  pose: partial,
-  t,
-  id = 'pip',
-}) => {
+export const Pip: React.FC<{
+  pose: Partial<PipPose>;
+  t: number;
+  id?: string;
+  /** Something Pip holds, drawn in Pip's local coordinates just behind the hands. */
+  holding?: React.ReactNode;
+}> = ({pose: partial, t, id = 'pip', holding}) => {
   const p: PipPose = {...PIP_REST, ...partial};
   const breathe = Math.sin(t * Math.PI * 0.9) * 0.012;
   const sq = p.squash + breathe + p.talk * 0.025;
@@ -391,6 +393,7 @@ export const Pip: React.FC<{pose: Partial<PipPose>; t: number; id?: string}> = (
             )}
           </g>
 
+          {holding}
           {/* arms in front of the body */}
           <Arm side={-1} hand={p.handL} fingers={p.fingers} t={t} />
           <Arm side={1} hand={p.handR} fingers={p.fingers} t={t + 0.13} />

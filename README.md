@@ -9,6 +9,7 @@ Output: **1080×1920, 60 fps, H.264, loudness −14 LUFS** (ready to upload).
 | Episode | Topic | Length |
 |---|---|---|
 | `EP001-tickle` | Why can't you tickle yourself? | 42 s |
+| `EP002-tickle-foot-reply` | Reply to a comment: "Bro i can tickle my own foot" (two kinds of tickle) | 29 s |
 
 ## How a video is built
 
@@ -49,6 +50,7 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 | `src/components/Hud.tsx` | Word-by-word karaoke captions + series title chip |
 | `src/components/Background.tsx` | Studio backdrop: gradients, bokeh, grid floor, grain, vignette |
 | `src/lib/anim.ts` | Keyframes, springs, easing, organic wobble, camera shake |
+| `src/lib/shots.tsx` | Shared shot helpers: shot transitions, camera, stage, sound design (voice + ducked music + SFX cues) |
 | `scripts/prepare_audio.py` | Word timings snapped to the real audio, caption chunking, lip-sync envelope |
 | `scripts/make_sfx.py` | The channel's original sound kit + background loop, synthesised from scratch (no licensing) |
 | `scripts/render.mjs` | Render + loudness normalisation |

@@ -345,15 +345,17 @@ export const FeelingSlider: React.FC<{x: number; y: number; level: number; s?: n
 };
 
 /** Rubber stamp that slams in. */
-export const Stamp: React.FC<{x: number; y: number; t: number; at: number; text: string; strikeAt?: number; color?: string}> = ({
-  x,
-  y,
-  t,
-  at,
-  text,
-  strikeAt,
-  color = C.red,
-}) => {
+export const Stamp: React.FC<{
+  x: number;
+  y: number;
+  t: number;
+  at: number;
+  text: string;
+  strikeAt?: number;
+  color?: string;
+  size?: number;
+  tint?: string;
+}> = ({x, y, t, at, text, strikeAt, color = C.red, size = 150, tint = 'rgba(255,59,78,0.08)'}) => {
   if (t < at) return null;
   const p = ease.out(prog(t, at, at + 0.16));
   const sc = 2.4 - 1.4 * p;
@@ -364,13 +366,14 @@ export const Stamp: React.FC<{x: number; y: number; t: number; at: number; text:
         style={{
           fontFamily: FONT_HEAD,
           fontWeight: 800,
-          fontSize: 150,
-          letterSpacing: 8,
+          fontSize: size,
+          letterSpacing: size * 0.05,
           color,
-          border: `14px solid ${color}`,
-          borderRadius: 34,
-          padding: '6px 42px 14px',
-          background: 'rgba(255,59,78,0.08)',
+          border: `${Math.round(size * 0.09)}px solid ${color}`,
+          borderRadius: size * 0.23,
+          padding: `${size * 0.04}px ${size * 0.28}px ${size * 0.09}px`,
+          background: tint,
+          whiteSpace: 'nowrap',
           textShadow: `0 0 40px ${color}55`,
           boxShadow: `0 0 60px ${color}44, inset 0 0 40px ${color}33`,
         }}
@@ -496,4 +499,118 @@ export const Card: React.FC<{x: number; y: number; w: number; h: number; s?: num
   >
     {children}
   </div>
+);
+
+/**
+ * A comment bubble in the style of a social reply ("Replying to @user").
+ * Uses an initial instead of the commenter's photo.
+ */
+export const CommentCard: React.FC<{
+  x: number;
+  y: number;
+  user: string;
+  text: string;
+  s?: number;
+  rot?: number;
+  label?: string;
+}> = ({x, y, user, text, s = 1, rot = 0, label = 'Replying to'}) => (
+  <div
+    style={{
+      position: 'absolute',
+      left: x,
+      top: y,
+      transform: `translate(-50%, -50%) scale(${s}) rotate(${rot}deg)`,
+      opacity: clamp(s * 2),
+      width: 860,
+    }}
+  >
+    <div
+      style={{
+        fontFamily: FONT_HEAD,
+        fontWeight: 800,
+        fontSize: 30,
+        letterSpacing: 4,
+        color: C.ink,
+        background: C.yellow,
+        display: 'inline-block',
+        padding: '8px 22px 9px',
+        borderRadius: 999,
+        marginLeft: 26,
+        marginBottom: -8,
+        position: 'relative',
+        zIndex: 1,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+      }}
+    >
+      {label.toUpperCase()} @{user.toUpperCase()}
+    </div>
+    <div
+      style={{
+        background: '#FFFFFF',
+        borderRadius: 44,
+        padding: '34px 40px 36px',
+        display: 'flex',
+        gap: 28,
+        alignItems: 'flex-start',
+        boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
+      }}
+    >
+      <div
+        style={{
+          width: 104,
+          height: 104,
+          flex: '0 0 104px',
+          borderRadius: 999,
+          background: 'linear-gradient(135deg, #FF4F8B, #8C7DFF)',
+          color: '#fff',
+          fontFamily: FONT_HEAD,
+          fontWeight: 800,
+          fontSize: 54,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {user.slice(0, 1).toUpperCase()}
+      </div>
+      <div>
+        <div style={{fontFamily: FONT_DISPLAY, fontWeight: 600, fontSize: 38, color: '#3B3570'}}>{user}</div>
+        <div style={{fontFamily: `${FONT_DISPLAY}, "Noto Color Emoji"`, fontWeight: 500, fontSize: 58, lineHeight: 1.15, color: C.ink, marginTop: 4}}>
+          {text}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+/** Glass "type" card used to compare two things side by side. */
+export const TypeCard: React.FC<{
+  x: number;
+  y: number;
+  title: string;
+  sub: string;
+  color: string;
+  s?: number;
+  icon?: React.ReactNode;
+  dim?: number;
+  w?: number;
+}> = ({x, y, title, sub, color, s = 1, icon, dim = 0, w = 430}) => (
+  <Card
+    x={x}
+    y={y}
+    w={w}
+    h={420}
+    s={s}
+    style={{borderColor: color, boxShadow: `0 30px 80px rgba(0,0,0,0.45), 0 0 50px ${color}55`, opacity: clamp(s * 1.5) * (1 - dim * 0.6)}}
+  >
+    <div style={{position: 'absolute', left: 0, right: 0, top: 26, height: 200, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      {icon}
+    </div>
+    <div style={{position: 'absolute', left: 0, right: 0, top: 250, textAlign: 'center', fontFamily: FONT_HEAD, fontWeight: 800, fontSize: 52, lineHeight: 1.0, color}}>
+      {title}
+    </div>
+    <div style={{position: 'absolute', left: 0, right: 0, top: 350, textAlign: 'center', fontFamily: FONT_DISPLAY, fontWeight: 500, fontSize: 32, color: 'rgba(255,255,255,0.7)', fontStyle: 'italic'}}>
+      {sub}
+    </div>
+  </Card>
 );
