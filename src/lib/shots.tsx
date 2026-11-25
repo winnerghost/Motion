@@ -39,16 +39,29 @@ export const envAt = (env: number[], t: number) => env[Math.max(0, Math.min(env.
 
 export type Cue = [number, string, number];
 
-/** Voiceover + ducked music bed + sound-effect cues. */
-export const SoundDesign: React.FC<{vo: string; env: number[]; end: number; cues: Cue[]}> = ({vo, env, end, cues}) => (
+/** Voiceover + ducked music bed + sound-effect cues.
+ *  `voVolume` lets an episode mute the main voice for a moment (e.g. to swap in
+ *  a processed version of the same line from `layers`, which share its timeline). */
+export const SoundDesign: React.FC<{
+  vo: string;
+  env: number[];
+  end: number;
+  cues: Cue[];
+  voVolume?: (t: number) => number;
+  layers?: {src: string; volume: (t: number) => number}[];
+  musicMul?: (t: number) => number;
+}> = ({vo, env, end, cues, voVolume, layers = [], musicMul}) => (
   <>
-    <Audio src={staticFile(vo)} />
+    <Audio src={staticFile(vo)} volume={voVolume ? (f) => voVolume(f / FPS) : undefined} />
+    {layers.map((l, i) => (
+      <Audio key={i} src={staticFile(l.src)} volume={(f) => l.volume(f / FPS)} />
+    ))}
     <Audio
       src={staticFile('music/curious-loop.wav')}
       volume={(f) => {
         const t = f / FPS;
         const speaking = envAt(env, t) > 0.15 ? 1 : 0;
-        return (0.16 - speaking * 0.05) * (1 - prog(t, end - 1.2, end));
+        return (0.16 - speaking * 0.05) * (1 - prog(t, end - 1.2, end)) * (musicMul ? musicMul(t) : 1);
       }}
     />
     {cues.map(([at, name, vol], i) => (
