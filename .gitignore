@@ -3,3 +3,5 @@ out/
 .remotion/
 *.log
 *.mp4
+*.zip
+site/dist/

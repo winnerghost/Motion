@@ -2,6 +2,7 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {PipSheet} from './PipSheet';
 import {WombatSheet} from './WombatSheet';
+import {ClipHello, ClipMachine, ClipSleep, WEB_FPS} from './web/WebClips';
 import {Avatar, Banner} from './brand/Brand';
 import {Episode001, EP001_DURATION} from './episodes/ep001/Episode';
 import {Episode002, EP002_DURATION} from './episodes/ep002/Episode';
@@ -20,6 +21,9 @@ export const Root: React.FC = () => (
     <Composition id="EP004-recorded-voice" component={Episode004} durationInFrames={EP004_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="PipSheet" component={PipSheet} durationInFrames={120} fps={FPS} width={W} height={H} />
     <Composition id="WombatSheet" component={WombatSheet} durationInFrames={60} fps={FPS} width={W} height={H} />
+    <Composition id="Web-Hello" component={ClipHello} durationInFrames={8 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />
+    <Composition id="Web-Machine" component={ClipMachine} durationInFrames={8 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />
+    <Composition id="Web-Sleep" component={ClipSleep} durationInFrames={6 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />
     <Composition id="Avatar" component={Avatar} durationInFrames={1} fps={FPS} width={1080} height={1080} />
     <Composition id="Banner" component={Banner} durationInFrames={1} fps={FPS} width={2560} height={1440} />
     <Composition id="BannerSafeArea" component={Banner} defaultProps={{showSafeArea: true}} durationInFrames={1} fps={FPS} width={2560} height={1440} />
