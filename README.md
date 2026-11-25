@@ -10,6 +10,7 @@ Output: **1080×1920, 60 fps, H.264, loudness −14 LUFS** (ready to upload).
 |---|---|---|
 | `EP001-tickle` | Why can't you tickle yourself? | 42 s |
 | `EP002-tickle-foot-reply` | Reply to a comment: "Bro i can tickle my own foot" (two kinds of tickle) | 29 s |
+| `EP003-wombat-cubes` | Why does the wombat poop cubes? | 45 s |
 
 ## How a video is built
 
@@ -46,6 +47,7 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 |---|---|
 | `src/character/Pip.tsx` | Pip, fully puppetable: eyes, lids, brows, mouth (lip-sync), arms with IK-style bends, fingers, antenna physics, squash & stretch, goggles |
 | `src/components/Brain.tsx` | Reusable cartoon brain with face, mask, glowing regions |
+| `src/components/Wombat.tsx` | Wombat guest star, poop cube/ball/blob, rock, trophy, gut tube + cross-section diagrams |
 | `src/components/Props.tsx` | Laugh-o-meter, robot arm (IK), feather, joystick, wave cards, sliders, stamp, speech bubble, "HA" bursts, pills |
 | `src/components/Hud.tsx` | Word-by-word karaoke captions + series title chip |
 | `src/components/Background.tsx` | Studio backdrop: gradients, bokeh, grid floor, grain, vignette |
@@ -57,6 +59,12 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 | `src/PipSheet.tsx` | Pip's expression sheet (`PipSheet` composition) |
 | `src/brand/Brand.tsx` | Profile picture (`Avatar`) and YouTube banner (`Banner`, `BannerSafeArea`) |
 | `channel/` | Launch kit: names, bios, descriptions, image prompts, upload templates, rendered logo + banner |
+
+## Sources (EP003)
+
+- Yang, Lee, Chan, Martin, Edwards, Carver & Hu (2021). *Intestines of non-uniform stiffness mold the corners of wombat feces.* Soft Matter 17, 475–488.
+- Yang & Hu: balloon tests of wombat intestines (APS Division of Fluid Dynamics, 2018).
+- 2019 Ig Nobel Prize in Physics.
 
 ## Sources (EP001)
 
