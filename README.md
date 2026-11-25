@@ -42,6 +42,21 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
    npm run render -- EP001-tickle   # -> out/EP001-tickle.mp4
    ```
 
+## Website (link in bio)
+
+`site/` is the channel's website: a fast, editorial single page (plain HTML + TypeScript, ~10 KB of JS).
+
+- Preloader with counter, curtain-style menu with live previews, custom cursor (desktop), smooth scrolling (desktop)
+- Cinematic hero loop of Pip (`src/web/LuxClips.tsx` → `Lux-Hero`, `Lux-Host`, share card `Lux-Og`)
+- Scroll-scrubbed manifesto, pinned horizontal film gallery with a lightbox player, question index with filters, platform links
+- All motion is transform/opacity only; videos play only while visible
+
+```bash
+npx vite build --config site/vite.config.ts   # -> site/dist
+npx vite preview --config site/vite.config.ts # local preview on :4173
+```
+Deploy by dragging the contents of `site/dist` (plus a `netlify.toml` with `publish = "."`) onto the Netlify project's Deploys page.
+
 ## What's in here
 
 | Path | What it is |
@@ -59,6 +74,7 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 | `scripts/make_sfx.py` | The channel's original sound kit + background loop, synthesised from scratch (no licensing) |
 | `scripts/render.mjs` | Render + loudness normalisation |
 | `src/PipSheet.tsx` | Pip's expression sheet (`PipSheet` composition) |
+| `src/web/LuxClips.tsx` | Cinematic website loops of Pip and the social share card |
 | `src/brand/Brand.tsx` | Profile picture (`Avatar`) and YouTube banner (`Banner`, `BannerSafeArea`) |
 | `channel/` | Launch kit: names, bios, descriptions, image prompts, upload templates, rendered logo + banner |
 

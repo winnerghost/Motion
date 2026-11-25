@@ -1,24 +1,294 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-loading">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Pip Explains · The facts you always wondered about</title>
-    <meta name="description" content="Pip explains the weird stuff in under a minute: animated, funny and actually true. New fact every day on YouTube Shorts and Instagram Reels." />
-    <meta name="theme-color" content="#07051A" />
+    <title>Pip Explains · Curiosity, answered.</title>
+    <meta name="description" content="A daily animated science series. One question you've always wondered about, researched properly and answered in under a minute, with sources." />
+    <meta name="theme-color" content="#0a0a0c" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Pip Explains · The facts you always wondered about" />
-    <meta property="og:description" content="Animated, funny and actually true. A new fact every day." />
+    <meta property="og:title" content="Pip Explains · Curiosity, answered." />
+    <meta property="og:description" content="A daily animated science series. One question, answered in under a minute, with sources." />
     <meta property="og:image" content="/og.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" href="/fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-tight-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/media/hero.jpg" as="image" />
   </head>
   <body>
-    <div id="root"></div>
-    <noscript>Pip Explains: new facts every day on YouTube (@pipexplainsfacts) and Instagram (@pip.explainsfacts).</noscript>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Preloader -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__mark"><span>Pip</span> <span>Explains</span></div>
+      <div class="loader__foot">
+        <span class="label">Curiosity, answered.</span>
+        <span class="loader__count">000</span>
+      </div>
+      <div class="loader__bar"><i></i></div>
+    </div>
+
+    <!-- Cursor (desktop) -->
+    <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+    <!-- Header -->
+    <header class="header">
+      <a href="#top" class="wordmark" data-scroll aria-label="Pip Explains, back to top">Pip Explains<i class="dot"></i></a>
+      <nav class="header__nav" aria-label="Sections">
+        <a href="#films" data-scroll>Films</a>
+        <a href="#host" data-scroll>The host</a>
+        <a href="#index" data-scroll>Index</a>
+        <a href="#follow" data-scroll>Follow</a>
+      </nav>
+      <div class="header__right">
+        <a class="pill pill--ghost header__sub" href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer">Subscribe</a>
+        <button class="menu-btn" aria-expanded="false" aria-controls="menu" data-cursor="Menu">
+          <span class="menu-btn__text"><span>Menu</span><span>Close</span></span>
+          <span class="menu-btn__icon"><i></i><i></i></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Menu -->
+    <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+      <div class="menu__inner">
+        <nav class="menu__list">
+          <a href="#top" data-scroll data-preview="/media/hero.jpg" data-caption="Curiosity, answered."><span class="menu__no">01</span><span class="menu__txt"><span>Home</span></span></a>
+          <a href="#films" data-scroll data-preview="/media/ep004.jpg" data-caption="Latest films, every day"><span class="menu__no">02</span><span class="menu__txt"><span>Films</span></span></a>
+          <a href="#host" data-scroll data-preview="/media/host.jpg" data-caption="Pip, your host"><span class="menu__no">03</span><span class="menu__txt"><span>The host</span></span></a>
+          <a href="#index" data-scroll data-preview="/media/ep001.jpg" data-caption="Every question, indexed"><span class="menu__no">04</span><span class="menu__txt"><span>Index</span></span></a>
+          <a href="#follow" data-scroll data-preview="/media/ep002.jpg" data-caption="Join the curious"><span class="menu__no">05</span><span class="menu__txt"><span>Follow</span></span></a>
+        </nav>
+        <figure class="menu__preview" aria-hidden="true">
+          <div class="menu__frame"><img src="/media/hero.jpg" alt="" /><img src="/media/hero.jpg" alt="" /></div>
+          <figcaption class="label">Curiosity, answered.</figcaption>
+        </figure>
+        <div class="menu__foot">
+          <a href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer" class="link">YouTube <span>@pipexplainsfacts</span></a>
+          <a href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer" class="link">Instagram <span>@pip.explainsfacts</span></a>
+          <span class="label menu__tag">A daily science series · Est. 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <div class="hero__text">
+          <p class="label hero__label"><span>Daily science series</span><i class="rule"></i><span>Est. 2026</span></p>
+          <h1 class="hero__title">
+            <span class="mask"><span>Curiosity,</span></span>
+            <span class="mask"><em>answered.</em></span>
+          </h1>
+          <p class="hero__sub">
+            A daily animated series that answers the questions you&rsquo;ve always wondered about. Researched properly, explained in under a minute, sources included.
+          </p>
+          <div class="hero__ctas">
+            <a class="pill pill--solid" href="#films" data-scroll data-cursor="Watch">Watch the latest films <span class="arrow">&rarr;</span></a>
+            <a class="link link--line" href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer">Subscribe on YouTube <span class="arrow">&nearr;</span></a>
+          </div>
+        </div>
+        <figure class="hero__media">
+          <div class="frame frame--hero">
+            <video src="/media/hero.mp4" poster="/media/hero.jpg" muted loop playsinline autoplay preload="auto" data-parallax="-0.08"></video>
+          </div>
+          <figcaption class="caption"><span class="label">Fig. 01</span> Pip, host of Pip Explains <span class="live"><i></i>New film daily</span></figcaption>
+        </figure>
+        <div class="hero__bottom">
+          <span class="label scroll-hint"><i></i>Scroll to explore</span>
+          <span class="label hero__platforms">YouTube Shorts &middot; Instagram Reels</span>
+        </div>
+      </section>
+
+      <!-- Ticker -->
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Curiosity, answered</span><i>&#10022;</i><span>One question a day</span><i>&#10022;</i><span>Under a minute</span><i>&#10022;</i><span>Sources included</span><i>&#10022;</i>
+          <span>Curiosity, answered</span><i>&#10022;</i><span>One question a day</span><i>&#10022;</i><span>Under a minute</span><i>&#10022;</i><span>Sources included</span><i>&#10022;</i>
+        </div>
+      </div>
+
+      <!-- Manifesto -->
+      <section class="section manifesto" id="about">
+        <p class="label section__label" data-reveal>01 &mdash; The series</p>
+        <p class="manifesto__text" data-words>
+          Every day, Pip takes one question you&rsquo;ve always wondered about and answers it properly. Real research, hand-crafted animation and every source in the description. No clickbait, no filler. Just the answer, in under a minute.
+        </p>
+        <div class="pillars">
+          <article class="pillar" data-reveal>
+            <span class="pillar__no">i.</span>
+            <h3>Under a minute</h3>
+            <p>Every film is built to respect your time: one question, one clear answer.</p>
+          </article>
+          <article class="pillar" data-reveal>
+            <span class="pillar__no">ii.</span>
+            <h3>Researched properly</h3>
+            <p>Peer-reviewed studies and expert sources. If it&rsquo;s still a theory, we say so.</p>
+          </article>
+          <article class="pillar" data-reveal>
+            <span class="pillar__no">iii.</span>
+            <h3>Animated by hand</h3>
+            <p>Every frame is designed for the story, not pulled from a template.</p>
+          </article>
+          <article class="pillar" data-reveal>
+            <span class="pillar__no">iv.</span>
+            <h3>Sources included</h3>
+            <p>Each film links the research behind it, so you can check every claim.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Films -->
+      <section class="films" id="films">
+        <div class="films__sticky">
+          <div class="films__head">
+            <div>
+              <p class="label section__label" data-reveal>02 &mdash; Films</p>
+              <h2 class="h2" data-split>Latest films</h2>
+            </div>
+            <div class="films__aside" data-reveal>
+              <p>New every day on YouTube Shorts and Instagram Reels.</p>
+              <a class="link link--line" href="https://www.youtube.com/@pipexplainsfacts/shorts" target="_blank" rel="noopener noreferrer">View all films <span class="arrow">&nearr;</span></a>
+            </div>
+          </div>
+          <div class="films__track">
+            <article class="film" data-film="ep004" data-cursor="Play">
+              <div class="frame frame--film"><video src="/media/ep004.mp4" poster="/media/ep004.jpg" muted loop playsinline preload="none"></video><span class="film__badge">New</span></div>
+              <div class="film__meta"><span class="label">No. 003 &middot; Acoustics &middot; 0:35</span><h3>Why does your voice sound different in recordings?</h3></div>
+            </article>
+            <article class="film" data-film="ep002" data-cursor="Play">
+              <div class="frame frame--film"><video src="/media/ep002.mp4" poster="/media/ep002.jpg" muted loop playsinline preload="none"></video></div>
+              <div class="film__meta"><span class="label">No. 002 &middot; Neuroscience &middot; 0:29</span><h3>Can you tickle your own foot?</h3></div>
+            </article>
+            <article class="film" data-film="ep001" data-cursor="Play">
+              <div class="frame frame--film"><video src="/media/ep001.mp4" poster="/media/ep001.jpg" muted loop playsinline preload="none"></video></div>
+              <div class="film__meta"><span class="label">No. 001 &middot; Neuroscience &middot; 0:42</span><h3>Why can&rsquo;t you tickle yourself?</h3></div>
+            </article>
+            <article class="film film--soon" data-cursor="Soon">
+              <div class="frame frame--film frame--soon"><span class="soon__no">004</span><span class="label soon__tag"><i></i>In production</span></div>
+              <div class="film__meta"><span class="label">No. 004 &middot; Physics &middot; Coming soon</span><h3>Are bananas radioactive?</h3></div>
+            </article>
+            <article class="film film--soon" data-cursor="Soon">
+              <div class="frame frame--film frame--soon"><span class="soon__no">005</span><span class="label soon__tag"><i></i>In production</span></div>
+              <div class="film__meta"><span class="label">No. 005 &middot; Physiology &middot; Coming soon</span><h3>Why do fingers wrinkle in water?</h3></div>
+            </article>
+            <a class="film film--more" href="https://www.youtube.com/@pipexplainsfacts/shorts" target="_blank" rel="noopener noreferrer" data-cursor="Open">
+              <div class="frame frame--film frame--more">
+                <span class="more__big">More<br /><em>every day.</em></span>
+                <span class="more__link">Open the channel <span class="arrow">&nearr;</span></span>
+              </div>
+            </a>
+          </div>
+          <div class="films__progress" aria-hidden="true"><i></i></div>
+        </div>
+      </section>
+
+      <!-- Host -->
+      <section class="section host" id="host">
+        <figure class="host__media">
+          <div class="frame frame--host" data-clip>
+            <video src="/media/host.mp4" poster="/media/host.jpg" muted loop playsinline preload="none" data-inview></video>
+          </div>
+          <figcaption class="caption"><span class="label">Fig. 02</span> Portrait of the host</figcaption>
+        </figure>
+        <div class="host__text">
+          <p class="label section__label" data-reveal>03 &mdash; The host</p>
+          <h2 class="h2" data-split>Meet <em>Pip.</em></h2>
+          <p class="host__lead" data-reveal>
+            Pip is the narrator behind every film: a small, endlessly curious character designed to make complicated ideas feel simple, without making them any less true.
+          </p>
+          <dl class="principles">
+            <div data-reveal><dt>Accuracy over hype</dt><dd>When the science is settled, we say it plainly. When it isn&rsquo;t, we say that too.</dd></div>
+            <div data-reveal><dt>Clarity over jargon</dt><dd>Complex ideas, explained with images and plain language.</dd></div>
+            <div data-reveal><dt>Craft over templates</dt><dd>Original character animation and sound design in every film.</dd></div>
+            <div data-reveal><dt>Open sources</dt><dd>The studies behind each answer are listed in every description.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- Index -->
+      <section class="section index" id="index">
+        <div class="index__head">
+          <div>
+            <p class="label section__label" data-reveal>04 &mdash; Index</p>
+            <h2 class="h2" data-split>The question <em>index.</em></h2>
+          </div>
+          <div class="filters" role="tablist" aria-label="Filter questions" data-reveal>
+            <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+            <button class="filter" data-filter="released" role="tab" aria-selected="false">Released</button>
+            <button class="filter" data-filter="upcoming" role="tab" aria-selected="false">Upcoming</button>
+            <i class="filters__ind"></i>
+          </div>
+        </div>
+        <ol class="qlist">
+          <li class="q" data-status="released" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">001</span><span class="q__title">Why can&rsquo;t you tickle yourself?</span><span class="q__field">Neuroscience</span><span class="q__status">Released</span><span class="q__icon"></span></button><div class="q__body"><div><p>Your brain predicts the sensation of your own movements and turns it down. Without surprise, the tickle response doesn&rsquo;t fire. Researchers showed that adding a delay of a fraction of a second between your movement and the touch makes it ticklish again.</p></div></div></li>
+          <li class="q" data-status="released" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">002</span><span class="q__title">Can you tickle your own foot?</span><span class="q__field">Neuroscience</span><span class="q__status">Released</span><span class="q__icon"></span></button><div class="q__body"><div><p>Partly. The light, itch-like tickle (knismesis) can be self-produced in a dampened form. The laughter-inducing kind (gargalesis) essentially can&rsquo;t, because your brain sees it coming.</p></div></div></li>
+          <li class="q" data-status="released" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">003</span><span class="q__title">Why does your voice sound different in recordings?</span><span class="q__field">Acoustics</span><span class="q__status">Released</span><span class="q__icon"></span></button><div class="q__body"><div><p>You normally hear yourself through the air and through the bones of your skull, which adds depth. A recording captures only the air-conducted sound, which is close to what everyone else hears.</p></div></div></li>
+          <li class="q" data-status="upcoming" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">004</span><span class="q__title">Why are wombat droppings cube-shaped?</span><span class="q__field">Biology</span><span class="q__status">Upcoming</span><span class="q__icon"></span></button><div class="q__body"><div><p>The final stretch of a wombat&rsquo;s intestine has alternating stiff and flexible regions. Stiffer regions contract faster and form the corners; flexible regions form the flat sides.</p></div></div></li>
+          <li class="q" data-status="upcoming" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">005</span><span class="q__title">Are bananas radioactive?</span><span class="q__field">Physics</span><span class="q__status">Upcoming</span><span class="q__icon"></span></button><div class="q__body"><div><p>Slightly. Bananas contain potassium-40, a naturally radioactive isotope, at levels that are completely harmless.</p></div></div></li>
+          <li class="q" data-status="upcoming" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">006</span><span class="q__title">Why do fingers wrinkle in water?</span><span class="q__field">Physiology</span><span class="q__status">Upcoming</span><span class="q__icon"></span></button><div class="q__body"><div><p>It&rsquo;s an active response from your nervous system that narrows blood vessels under the skin, not water soaking in. Fingers with damaged nerves don&rsquo;t wrinkle.</p></div></div></li>
+          <li class="q" data-status="upcoming" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">007</span><span class="q__title">Why can&rsquo;t you hum with your nose pinched?</span><span class="q__field">Physiology</span><span class="q__status">Upcoming</span><span class="q__icon"></span></button><div class="q__body"><div><p>Humming needs air to escape through the nose. With the nose blocked and the mouth closed, the airflow stops within seconds.</p></div></div></li>
+          <li class="q" data-status="upcoming" data-reveal><button class="q__row" aria-expanded="false"><span class="q__no">008</span><span class="q__title">Why do onions make you cry?</span><span class="q__field">Chemistry</span><span class="q__status">Upcoming</span><span class="q__icon"></span></button><div class="q__body"><div><p>Cutting an onion releases an irritating gas that reaches your eyes, and they produce tears to flush it away.</p></div></div></li>
+        </ol>
+      </section>
+
+      <!-- Follow -->
+      <section class="section follow" id="follow">
+        <p class="label section__label" data-reveal>05 &mdash; Follow</p>
+        <h2 class="follow__title" data-split>Join the <em>curious.</em></h2>
+        <div class="platforms">
+          <a class="platform" href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer" data-reveal data-cursor="Subscribe">
+            <span class="platform__fill"></span>
+            <span class="platform__name">YouTube</span>
+            <span class="platform__handle">@pipexplainsfacts</span>
+            <span class="platform__what">Shorts &middot; Daily</span>
+            <span class="platform__arrow">&nearr;</span>
+          </a>
+          <a class="platform" href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer" data-reveal data-cursor="Follow">
+            <span class="platform__fill"></span>
+            <span class="platform__name">Instagram</span>
+            <span class="platform__handle">@pip.explainsfacts</span>
+            <span class="platform__what">Reels &middot; Daily</span>
+            <span class="platform__arrow">&nearr;</span>
+          </a>
+        </div>
+        <p class="follow__note" data-reveal>Have a question for Pip? Leave it in the comments of any film. The best ones become episodes.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__mark" aria-hidden="true" data-letters>Pip Explains</div>
+      <div class="footer__bar">
+        <span>&copy; <span class="year">2026</span> Pip Explains</span>
+        <span class="footer__mid">Curiosity, answered.</span>
+        <span class="footer__links">
+          <a href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer" class="link">YouTube</a>
+          <a href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer" class="link">Instagram</a>
+          <a href="#top" data-scroll class="link">Back to top &uarr;</a>
+        </span>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Film" hidden>
+      <div class="lightbox__inner">
+        <div class="lightbox__media"><video controls playsinline></video></div>
+        <div class="lightbox__info">
+          <span class="label lightbox__meta"></span>
+          <h3 class="lightbox__title"></h3>
+          <p class="lightbox__desc"></p>
+          <div class="lightbox__ctas">
+            <a class="pill pill--solid" href="https://www.youtube.com/@pipexplainsfacts/shorts" target="_blank" rel="noopener noreferrer">Watch on YouTube <span class="arrow">&nearr;</span></a>
+            <a class="link link--line" href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer">Watch on Instagram <span class="arrow">&nearr;</span></a>
+          </div>
+        </div>
+        <button class="lightbox__close" aria-label="Close film" data-cursor="Close">Close <span>&times;</span></button>
+      </div>
+    </div>
+
+    <noscript><style>.loader{display:none}html.is-loading{overflow:auto}</style></noscript>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
