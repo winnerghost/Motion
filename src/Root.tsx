@@ -5,6 +5,7 @@ import {WombatSheet} from './WombatSheet';
 import {ClipHello, ClipMachine, ClipSleep, WEB_FPS} from './web/WebClips';
 import {LuxHero, LuxHost, LuxOg, LUX_FPS} from './web/LuxClips';
 import {Avatar, Banner} from './brand/Brand';
+import {PipCutout} from './brand/PipCutout';
 import {Episode001, EP001_DURATION} from './episodes/ep001/Episode';
 import {Episode002, EP002_DURATION} from './episodes/ep002/Episode';
 import {Episode003, EP003_DURATION} from './episodes/ep003/Episode';
@@ -31,6 +32,18 @@ export const Root: React.FC = () => (
     <Composition id="Lux-Hero" component={LuxHero} durationInFrames={8 * LUX_FPS} fps={LUX_FPS} width={1080} height={1350} />
     <Composition id="Lux-Host" component={LuxHost} durationInFrames={6 * LUX_FPS} fps={LUX_FPS} width={1080} height={1080} />
     <Composition id="Lux-Og" component={LuxOg} durationInFrames={1} fps={LUX_FPS} width={1200} height={630} />
+    <Composition
+      id="Pip-Poster-Curious"
+      component={PipCutout}
+      defaultProps={{
+        mirror: true,
+        pose: {scale: 1.9, lookX: -0.5, lookY: -0.85, browL: 0.85, browR: 0.7, smile: 0.25, mouthOpen: 0.16, mouthW: 0.72, lid: 0, tilt: -6, antennaGlow: 1, blush: 0.3, handL: [-205, 80], handR: [196, 66]},
+      }}
+      durationInFrames={1}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
     <Composition id="Avatar" component={Avatar} durationInFrames={1} fps={FPS} width={1080} height={1080} />
     <Composition id="Banner" component={Banner} durationInFrames={1} fps={FPS} width={2560} height={1440} />
     <Composition id="BannerSafeArea" component={Banner} defaultProps={{showSafeArea: true}} durationInFrames={1} fps={FPS} width={2560} height={1440} />
