@@ -6,19 +6,23 @@ import {wobble, W, H} from '../lib/anim';
  * Deep-space studio backdrop: layered gradients, drifting bokeh, a moving key
  * light, film grain and a vignette. `hue` shifts the whole palette per scene.
  */
-export const Background: React.FC<{t: number; hue?: number; glow?: number; glowX?: number; glowY?: number}> = ({
+export const Background: React.FC<{t: number; hue?: number; glow?: number; glowX?: number; glowY?: number; w?: number; h?: number}> = ({
   t,
   hue = 0,
   glow = 1,
   glowX = 540,
   glowY = 860,
+  w = W,
+  h = H,
 }) => {
+  const cx = w / 2;
+  const horizon = h * 0.6;
   const bokeh = Array.from({length: 26}, (_, i) => {
-    const sx = (i * 397) % W;
-    const sy = (i * 733) % H;
+    const sx = (i * 397) % w;
+    const sy = (i * 733) % h;
     const r = 6 + ((i * 53) % 30);
     const x = sx + wobble(t, 0.05, `bx${i}`) * 120;
-    const y = ((sy - t * (10 + (i % 5) * 6)) % H + H) % H;
+    const y = ((sy - t * (10 + (i % 5) * 6)) % h + h) % h;
     const a = 0.05 + ((i * 17) % 10) / 100;
     return {x, y, r, a, c: i % 3 === 0 ? '#45E9FF' : i % 3 === 1 ? '#FF4F8B' : '#B7A6FF'};
   });
@@ -36,16 +40,16 @@ export const Background: React.FC<{t: number; hue?: number; glow?: number; glowX
       />
       <AbsoluteFill
         style={{
-          background: `radial-gradient(circle at ${900 + wobble(t, 0.08, 'p') * 60}px 300px, rgba(255,79,139,0.16) 0%, rgba(0,0,0,0) 40%)`,
+          background: `radial-gradient(circle at ${w * 0.83 + wobble(t, 0.08, 'p') * 60}px ${h * 0.16}px, rgba(255,79,139,0.16) 0%, rgba(0,0,0,0) 40%)`,
         }}
       />
       <AbsoluteFill
         style={{
-          background: `radial-gradient(circle at 120px 1500px, rgba(69,233,255,0.12) 0%, rgba(0,0,0,0) 42%)`,
+          background: `radial-gradient(circle at ${w * 0.11}px ${h * 0.78}px, rgba(69,233,255,0.12) 0%, rgba(0,0,0,0) 42%)`,
         }}
       />
       {/* subtle perspective grid floor */}
-      <svg width={W} height={H} style={{position: 'absolute', opacity: 0.22}}>
+      <svg width={w} height={h} style={{position: 'absolute', opacity: 0.22}}>
         <defs>
           <linearGradient id="floorfade" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#8C7DFF" stopOpacity="0" />
@@ -53,16 +57,16 @@ export const Background: React.FC<{t: number; hue?: number; glow?: number; glowX
           </linearGradient>
         </defs>
         {Array.from({length: 15}, (_, i) => {
-          const x = -1200 + i * 240;
-          return <line key={`v${i}`} x1={540} y1={1150} x2={x} y2={H} stroke="url(#floorfade)" strokeWidth={2} />;
+          const x = cx - 1740 * (w / 1080) + i * 240 * (w / 1080);
+          return <line key={`v${i}`} x1={cx} y1={horizon} x2={x} y2={h} stroke="url(#floorfade)" strokeWidth={2} />;
         })}
         {Array.from({length: 8}, (_, i) => {
           const p = ((i + (t * 0.25) % 1) / 8) ** 2;
-          const y = 1180 + p * (H - 1180);
-          return <line key={`h${i}`} x1={0} y1={y} x2={W} y2={y} stroke="#8C7DFF" strokeOpacity={p * 0.8} strokeWidth={2} />;
+          const y = horizon + 30 + p * (h - horizon - 30);
+          return <line key={`h${i}`} x1={0} y1={y} x2={w} y2={y} stroke="#8C7DFF" strokeOpacity={p * 0.8} strokeWidth={2} />;
         })}
       </svg>
-      <svg width={W} height={H} style={{position: 'absolute'}}>
+      <svg width={w} height={h} style={{position: 'absolute'}}>
         <defs>
           <filter id="bokehblur" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="6" />
@@ -82,12 +86,12 @@ export const Background: React.FC<{t: number; hue?: number; glow?: number; glowX
 };
 
 /** Animated film grain — sits on top of everything at low opacity. */
-export const Grain: React.FC<{frame: number; opacity?: number}> = ({frame, opacity = 0.07}) => (
-  <svg width={W} height={H} style={{position: 'absolute', inset: 0, opacity, mixBlendMode: 'overlay', pointerEvents: 'none'}}>
+export const Grain: React.FC<{frame: number; opacity?: number; w?: number; h?: number}> = ({frame, opacity = 0.07, w = W, h = H}) => (
+  <svg width={w} height={h} style={{position: 'absolute', inset: 0, opacity, mixBlendMode: 'overlay', pointerEvents: 'none'}}>
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={Math.floor(frame / 2) % 50} stitchTiles="stitch" />
       <feColorMatrix type="saturate" values="0" />
     </filter>
-    <rect width={W} height={H} filter="url(#grain)" />
+    <rect width={w} height={h} filter="url(#grain)" />
   </svg>
 );

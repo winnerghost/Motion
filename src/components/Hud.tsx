@@ -19,7 +19,10 @@ export const Captions: React.FC<{
   emphasis?: string[];
   y?: number;
   hidden?: (t: number) => boolean;
-}> = ({t, words, chunks, emphasis = [], y = 1330, hidden}) => {
+  /** size multiplier (1 = vertical Shorts; ~0.6 for 16:9) */
+  scale?: number;
+  side?: number;
+}> = ({t, words, chunks, emphasis = [], y = 1330, hidden, scale = 1, side = 90}) => {
   if (hidden?.(t)) return null;
   const emph = new Set(emphasis.map(norm));
   let idx = -1;
@@ -40,13 +43,13 @@ export const Captions: React.FC<{
         style={{
           position: 'absolute',
           top: y,
-          left: 90,
-          right: 90,
+          left: side,
+          right: side,
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'flex-end',
-          columnGap: 40,
+          columnGap: 40 * scale,
           rowGap: 0,
           transform: `scale(${1 - exit * 0.15})`,
           opacity: 1 - exit,
@@ -65,16 +68,16 @@ export const Captions: React.FC<{
               style={{
                 fontFamily: FONT_DISPLAY,
                 fontWeight: 700,
-                fontSize: isEmph ? 108 : 94,
+                fontSize: (isEmph ? 108 : 94) * scale,
                 lineHeight: 1.08,
                 letterSpacing: 1,
                 textTransform: 'uppercase',
                 color,
-                WebkitTextStroke: '18px #120C33',
+                WebkitTextStroke: `${18 * scale}px #120C33`,
                 paintOrder: 'stroke fill',
-                textShadow: '0 10px 0 rgba(10,6,30,0.55), 0 18px 40px rgba(0,0,0,0.45)',
+                textShadow: `0 ${10 * scale}px 0 rgba(10,6,30,0.55), 0 ${18 * scale}px ${40 * scale}px rgba(0,0,0,0.45)`,
                 display: 'inline-block',
-                transform: `translateY(${(1 - s) * 40}px) scale(${0.55 + 0.45 * s}) rotate(${isEmph && active ? wobble(t, 9, wi) * 3 : 0}deg)`,
+                transform: `translateY(${(1 - s) * 40 * scale}px) scale(${0.55 + 0.45 * s}) rotate(${isEmph && active ? wobble(t, 9, wi) * 3 : 0}deg)`,
                 opacity: Math.min(1, s * 1.6),
               }}
             >

@@ -1,0 +1,66 @@
+{
+  "id": "lf01",
+  "title": "10 Myths You Still Believe",
+  "voice": "95etAma035P6Ys5iv7Oo",
+  "model": "eleven_v4",
+  "sections": [
+    {
+      "id": "intro",
+      "prompt": "[excited] You have believed at least ONE of these your whole life. [mischievously] Maybe all ten. [curious] Today we're counting down the ten biggest myths that just... will not die. And number one? [dramatically] You probably learned it in school. [excited] Let's go!"
+    },
+    {
+      "id": "m10",
+      "myth": "You lose most of your body heat through your head.",
+      "prompt": "[excited] Number ten! You lose most of your body heat through your head. [deadpan] Myth. [curious] Your head is only about ten percent of your skin, so it loses roughly ten percent of your heat. The myth came from an old army test, where volunteers wore arctic suits... with their heads sticking out. [sarcastic] So of course the heat escaped through the head. It was the only part uncovered! [excited] Still, wear a hat. Ten percent is ten percent."
+    },
+    {
+      "id": "m9",
+      "myth": "Hair and nails keep growing after you die.",
+      "prompt": "[curious] Number nine! Hair and nails keep growing after you die. [deadpan] Myth. Growing takes energy, and a body that is very much alive. [mysteriously] What really happens is sneakier. The skin dries out and pulls back. So the nails and stubble look longer... because everything around them got smaller."
+    },
+    {
+      "id": "m8",
+      "myth": "Bats are blind.",
+      "prompt": "[excited] Number eight! Blind as a bat. [deadpan] Myth. Every bat can see. Many also use echolocation: they shout, then listen to the echoes to map the dark. [excited] And fruit bats? They mostly find their way with big eyes and a great nose. [mischievously] So blind as a bat... actually means you can see just fine."
+    },
+    {
+      "id": "m7",
+      "myth": "Sugar makes kids hyper.",
+      "prompt": "[curious] Number seven! Sugar makes kids hyper. [deadpan] Myth. In careful studies, kids got either real sugar, or a sugar-free fake. And their behaviour? The same. [mischievously] But here's the best part. In one experiment, parents were told their child just had sugar... when it was actually the fake. [excited] And those parents rated their kids as more hyper! [whispers] The sugar rush... was in the parents' heads."
+    },
+    {
+      "id": "m6",
+      "myth": "Cracking your knuckles gives you arthritis.",
+      "prompt": "[excited] Number six! Cracking your knuckles gives you arthritis. [deadpan] Myth. That pop is a tiny gas bubble forming in the fluid inside your joint. And one doctor tested it the hard way: for SIXTY years, he cracked the knuckles on only ONE hand. [dramatically] The result? No arthritis. In either hand. [excited] He won an Ig Nobel Prize for it."
+    },
+    {
+      "id": "m5",
+      "myth": "Bulls hate the colour red.",
+      "prompt": "[curious] Number five! Bulls hate the colour red. [deadpan] Myth. Bulls are red-green colour-blind. To a bull, that red cape doesn't even look red. [excited] When it was tested with red, blue and white flags, the bull charged whichever one was MOVING. [mischievously] The red is for the crowd."
+    },
+    {
+      "id": "m4",
+      "myth": "The Great Wall of China is visible from space.",
+      "prompt": "[excited] Number four! The Great Wall of China is visible from space. [deadpan] Myth. The wall is incredibly long, but only a few metres wide, and the same colour as the land around it. Astronauts in orbit say they can barely spot it, if at all. [dramatically] And from the Moon? That would be like spotting a single human hair... from three kilometres away. [excited] What you CAN see from space? City lights, at night."
+    },
+    {
+      "id": "m3",
+      "myth": "Lightning never strikes the same place twice.",
+      "prompt": "[curious] Number three! Lightning never strikes the same place twice. [deadpan] Myth. Lightning loves tall, pointy things. The Empire State Building gets hit about twenty times... every single year. [dramatically] And one park ranger, Roy Sullivan, was struck by lightning SEVEN times. [sarcastic] He survived all seven. [whispers] Lightning really did not like that guy."
+    },
+    {
+      "id": "m2",
+      "myth": "You only use 10% of your brain.",
+      "prompt": "[excited] Number two! You only use ten percent of your brain. [deadpan] Myth. Brain scans show activity all over the brain, even while you sleep. And your brain is expensive. It's about two percent of your body weight, but it burns about twenty percent of your energy. [sarcastic] Your body would not pay for ninety percent of useless brain. [excited] Damage almost any part of it, and something stops working."
+    },
+    {
+      "id": "m1",
+      "myth": "Summer happens because Earth is closer to the Sun.",
+      "prompt": "[dramatically] And number one. The one you probably learned in school. It's hot in summer because Earth is closer to the Sun. [deadpan] Myth. [excited] Earth is actually CLOSEST to the Sun in early January, when it's winter in India, America and Europe! The real reason is the tilt. Earth leans about twenty-three degrees. When your half tilts toward the Sun, sunlight hits you more directly, and the days are longer. That's summer. [curious] And that's why, when it's summer in the north... it's winter in Australia."
+    },
+    {
+      "id": "outro",
+      "prompt": "[excited] So... how many did you believe? Tell me in the comments: which myth fooled you the longest? [mischievously] And if you want a new answer every single day, you know what to do. [confidently] I'm Pip. Curiosity, answered."
+    }
+  ]
+}
