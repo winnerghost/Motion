@@ -1,18 +1,12 @@
-import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import './styles.css';
-
-/* ================================================================== */
-/* Setup                                                               */
-/* ================================================================== */
-const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector<T>(s) as T;
-const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll<T>(s));
-const html = document.documentElement;
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const fine = window.matchMedia('(pointer: fine)').matches;
-const desktop = () => window.innerWidth > 960;
-const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+import {$, $$, html, reduced, fine, desktop, clamp, lerp, pointer, activity, lenis, scrollToTarget, lockScroll, toast, raf2} from './core';
+import {createMenu} from './menu';
+import {initLabs} from './labs';
+import {initGame} from './game';
+import {initCountdowns} from './countdown';
+import {answerCard, toFile, shareFile} from './share';
+import {SECRETS} from './facts';
 
 const FILMS: Record<string, {meta: string; title: string; desc: string; src: string; poster: string}> = {
   ep004: {
@@ -37,18 +31,6 @@ const FILMS: Record<string, {meta: string; title: string; desc: string; src: str
     poster: '/media/ep001.jpg',
   },
 };
-
-/* pointer state (mouse or last touch) */
-const pointer = {x: window.innerWidth / 2, y: window.innerHeight * 0.4, active: false, last: 0, touch: false};
-const setPointer = (x: number, y: number, touch: boolean) => {
-  pointer.x = x;
-  pointer.y = y;
-  pointer.active = true;
-  pointer.touch = touch;
-  pointer.last = performance.now();
-};
-window.addEventListener('pointermove', (e) => setPointer(e.clientX, e.clientY, e.pointerType !== 'mouse'), {passive: true});
-window.addEventListener('pointerdown', (e) => setPointer(e.clientX, e.clientY, e.pointerType !== 'mouse'), {passive: true});
 
 /* ================================================================== */
 /* Text splitting                                                      */
@@ -109,18 +91,6 @@ const manifestoWords = splitManifesto($('[data-words]'));
 $$('.year').forEach((e) => (e.textContent = String(new Date().getFullYear())));
 
 /* ================================================================== */
-/* Smooth scroll (desktop) — touch keeps native momentum               */
-/* ================================================================== */
-const lenis = !reduced && fine ? new Lenis({lerp: 0.075, wheelMultiplier: 0.9, smoothWheel: true}) : null;
-lenis?.stop();
-const scrollTo = (target: string) => {
-  const el = document.querySelector<HTMLElement>(target);
-  if (!el) return;
-  if (lenis) lenis.scrollTo(el, {duration: 1.8, offset: el.id === 'top' ? -400 : 0, easing: (t) => 1 - Math.pow(1 - t, 4)});
-  else el.scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});
-};
-
-/* ================================================================== */
 /* Intro: the bulb flickers on, the spotlight opens, the stage appears  */
 /* ================================================================== */
 (function intro() {
@@ -175,10 +145,63 @@ playWhenVisible($<HTMLVideoElement>('.hero video'), 0.05);
 $$<HTMLVideoElement>('video[data-inview]').forEach((v) => playWhenVisible(v, 0.3));
 
 /* ================================================================== */
-/* Pip's eyes: live pupils over the video that follow the visitor       */
+/* Pip's eyes: live pupils and lids over the video                      */
+/* He follows you, blinks, squints when you get close, gets sleepy late */
+/* at night, dozes off when you go quiet and gets dizzy if you fling    */
+/* the page.                                                            */
 /* ================================================================== */
 type Eyes = {svg: SVGSVGElement; pupils: SVGGElement[]; centers: [number, number][]; vbW: number; vbH: number; rx: number; ry: number; x: number; y: number; visible: boolean};
+type Mood = 'watch' | 'squint' | 'sleepy' | 'doze' | 'dizzy' | 'curious';
+const SVGNS = 'http://www.w3.org/2000/svg';
+const MOODS: Record<Mood, {lid: number; text: string}> = {
+  watch: {lid: 0, text: 'He’s watching'},
+  squint: {lid: 0.36, text: 'Squinting at you'},
+  sleepy: {lid: 0.5, text: 'Sleepy, it’s late'},
+  doze: {lid: 0.68, text: 'Dozing off…'},
+  dizzy: {lid: 0.08, text: 'Whoa. Dizzy.'},
+  curious: {lid: 0, text: 'Curious, isn’t he?'},
+};
+
+function blinkEyes(svg: SVGSVGElement) {
+  svg.classList.remove('is-blink');
+  void svg.getBoundingClientRect();
+  svg.classList.add('is-blink');
+  window.setTimeout(() => svg.classList.remove('is-blink'), 200);
+}
+
+/* replace the flat blink rects with real lids: a curved edge and a lash line that slide down */
+function buildLids(svg: SVGSVGElement) {
+  $$<SVGRectElement>('rect.lid', svg).forEach((rect) => {
+    const ell = svg.querySelector<SVGEllipseElement>(`${rect.parentElement!.getAttribute('clip-path')!.slice(4, -1)} ellipse`);
+    if (!ell) return;
+    const cx = ell.cx.baseVal.value;
+    const cy = ell.cy.baseVal.value;
+    const rx = ell.rx.baseVal.value;
+    const ry = ell.ry.baseVal.value;
+    const bulge = ry * 0.3;
+    const yb = cy - ry - bulge;
+    const x0 = cx - rx - 12;
+    const x1 = cx + rx + 12;
+    const g = document.createElementNS(SVGNS, 'g');
+    g.setAttribute('class', 'lid');
+    const body = document.createElementNS(SVGNS, 'path');
+    body.setAttribute('d', `M ${x0} ${yb - ry * 2.4} L ${x1} ${yb - ry * 2.4} L ${x1} ${yb} Q ${cx} ${yb + bulge * 2} ${x0} ${yb} Z`);
+    body.setAttribute('fill', rect.getAttribute('fill') ?? '#ffa244');
+    const lash = document.createElementNS(SVGNS, 'path');
+    lash.setAttribute('d', `M ${x0} ${yb} Q ${cx} ${yb + bulge * 2} ${x1} ${yb}`);
+    lash.setAttribute('fill', 'none');
+    lash.setAttribute('stroke', '#7a3510');
+    lash.setAttribute('stroke-opacity', '0.55');
+    lash.setAttribute('stroke-width', String(Math.round(ry * 0.07)));
+    lash.setAttribute('stroke-linecap', 'round');
+    g.append(body, lash);
+    rect.replaceWith(g);
+    svg.style.setProperty('--travel', `${(ry * 2 + bulge + 2).toFixed(1)}px`);
+  });
+}
+
 const eyes: Eyes[] = $$<SVGSVGElement>('svg[data-eyes]').map((svg) => {
+  buildLids(svg);
   const [rx, ry] = (svg.dataset.range ?? '20 24').split(' ').map(Number);
   const vb = svg.viewBox.baseVal;
   const centers = $$<SVGEllipseElement>('clipPath ellipse', svg).map((e) => [e.cx.baseVal.value, e.cy.baseVal.value] as [number, number]);
@@ -187,19 +210,49 @@ const eyes: Eyes[] = $$<SVGSVGElement>('svg[data-eyes]').map((svg) => {
   // natural, irregular blinking
   const blink = () => {
     if (st.visible && !reduced) {
-      svg.classList.add('is-blink');
-      window.setTimeout(() => svg.classList.remove('is-blink'), 190);
-      if (Math.random() < 0.18) window.setTimeout(() => {
-        svg.classList.add('is-blink');
-        window.setTimeout(() => svg.classList.remove('is-blink'), 170);
-      }, 320);
+      blinkEyes(svg);
+      if (Math.random() < 0.18) window.setTimeout(() => blinkEyes(svg), 330);
     }
     window.setTimeout(blink, 2400 + Math.random() * 3800);
   };
   window.setTimeout(blink, 1800 + Math.random() * 2000);
   return st;
 });
-function updateEyes(t: number, vy: number, rects: (DOMRect | null)[]) {
+
+const moodEl = $('.hero .mood');
+let mood: Mood = 'watch';
+let dizzyUntil = 0;
+let curiousUntil = 0;
+let night = false;
+const checkNight = () => {
+  const h = new Date().getHours();
+  night = h >= 23 || h < 6;
+};
+checkNight();
+window.setInterval(checkNight, 60000);
+
+function setMood(m: Mood) {
+  if (m === mood) return;
+  const wasAsleep = mood === 'doze' || mood === 'sleepy';
+  mood = m;
+  eyes.forEach((e) => {
+    e.svg.style.setProperty('--lid', String(MOODS[m].lid));
+    if (m === 'watch' && wasAsleep) blinkEyes(e.svg);
+  });
+  if (moodEl) {
+    moodEl.classList.add('is-swap');
+    window.setTimeout(() => {
+      moodEl.textContent = MOODS[m].text;
+      moodEl.classList.remove('is-swap');
+    }, 220);
+  }
+}
+
+function updateEyes(t: number, vy: number, rects: (DOMRect | null)[], heroOn: boolean) {
+  const now = performance.now();
+  if (Math.abs(vy) > 70 && !reduced) dizzyUntil = now + 1500;
+  let near = false;
+  const idle = !pointer.active || (pointer.touch && now - pointer.last > 2500);
   eyes.forEach((e, n) => {
     const r = rects[n];
     if (!r) return;
@@ -208,10 +261,19 @@ function updateEyes(t: number, vy: number, rects: (DOMRect | null)[]) {
     const oy = r.top + (r.height - e.vbH * s) / 2;
     const ex = ox + ((e.centers[0][0] + e.centers[1][0]) / 2) * s;
     const ey = oy + ((e.centers[0][1] + e.centers[1][1]) / 2) * s;
+    const span = Math.abs(e.centers[1][0] - e.centers[0][0]) * s;
     let tx: number;
     let ty: number;
-    const idle = !pointer.active || (pointer.touch && performance.now() - pointer.last > 2500);
-    if (idle) {
+    if (now < dizzyUntil) {
+      tx = Math.cos(t * 11) * 0.95;
+      ty = Math.sin(t * 11) * 0.95;
+    } else if (now < curiousUntil) {
+      tx = Math.sin(t * 2.2) * 0.12;
+      ty = -0.15;
+    } else if (mood === 'doze') {
+      tx = Math.sin(t * 0.3) * 0.15;
+      ty = 0.55;
+    } else if (idle) {
       // wander, and glance in the direction you scroll
       tx = Math.sin(t * 0.45) * 0.55 + Math.sin(t * 1.3) * 0.12;
       ty = Math.sin(t * 0.31) * 0.3 + clamp(vy * 0.04, -0.6, 0.6);
@@ -222,13 +284,36 @@ function updateEyes(t: number, vy: number, rects: (DOMRect | null)[]) {
       const k = Math.min(1, d / 320) / (d || 1);
       tx = dx * k;
       ty = dy * k;
+      if (fine && d < span * 0.95) near = true;
     }
-    e.x = lerp(e.x, tx, 0.14);
-    e.y = lerp(e.y, ty, 0.14);
+    const k = now < dizzyUntil ? 0.3 : 0.14;
+    e.x = lerp(e.x, tx, k);
+    e.y = lerp(e.y, ty, k);
     const tf = `translate(${(e.x * e.rx).toFixed(2)}px, ${(e.y * e.ry).toFixed(2)}px)`;
     for (const pu of e.pupils) pu.style.transform = tf;
   });
+  if (reduced) return;
+  const quiet = now - activity.last > 25000;
+  const next: Mood = now < dizzyUntil ? 'dizzy' : now < curiousUntil ? 'curious' : near ? 'squint' : quiet ? 'doze' : night ? 'sleepy' : 'watch';
+  if (next !== mood && (heroOn || eyes.some((e) => e.visible))) setMood(next);
 }
+
+/* type "why" anywhere: Pip shares a secret */
+(function secrets() {
+  let buf = '';
+  let n = Math.floor(Math.random() * SECRETS.length);
+  window.addEventListener('keydown', (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('input, textarea, select') || e.key.length !== 1) return;
+    buf = (buf + e.key.toLowerCase()).slice(-3);
+    if (buf !== 'why') return;
+    buf = '';
+    n = (n + 1) % SECRETS.length;
+    toast(SECRETS[n]);
+    curiousUntil = performance.now() + 3500;
+    eyes.forEach((e) => blinkEyes(e.svg));
+  });
+})();
 
 /* ================================================================== */
 /* Films: projector reel, previews, lightbox                            */
@@ -340,8 +425,7 @@ function openFilm(id: string) {
   lbVideo.poster = f.poster;
   lbVideo.src = f.src;
   lb.hidden = false;
-  lenis?.stop();
-  html.classList.add('is-locked');
+  lockScroll(true);
   requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('is-open')));
   void lbVideo.play().catch(() => undefined);
   $<HTMLButtonElement>('.lightbox__close').focus({preventScroll: true});
@@ -349,8 +433,7 @@ function openFilm(id: string) {
 function closeFilm() {
   lb.classList.remove('is-open');
   lbVideo.pause();
-  html.classList.remove('is-locked');
-  lenis?.start();
+  lockScroll(false);
   lbTimer = window.setTimeout(() => {
     lb.hidden = true;
     lbVideo.removeAttribute('src');
@@ -361,67 +444,22 @@ $('.lightbox__close').addEventListener('click', closeFilm);
 lb.addEventListener('click', (e) => e.target === lb && closeFilm());
 
 /* ================================================================== */
-/* Menu: a camera iris that opens from the button                       */
+/* Menu: lights out, Pip's antenna becomes a spotlight (see menu.ts)    */
 /* ================================================================== */
-const menu = $('.menu');
-const menuBtn = $<HTMLButtonElement>('.menu-btn');
-const frameImgs = $$<HTMLImageElement>('.menu__frame img');
-const menuCaption = $('.menu__preview figcaption');
-let menuOpen = false;
-let menuTimer = 0;
-let frontImg = 0;
-function setMenu(open: boolean) {
-  if (open === menuOpen) return;
-  menuOpen = open;
-  window.clearTimeout(menuTimer);
-  menuBtn.setAttribute('aria-expanded', String(open));
-  const b = menuBtn.getBoundingClientRect();
-  menu.style.setProperty('--ox', `${b.left + b.width - 20}px`);
-  menu.style.setProperty('--oy', `${b.top + b.height / 2}px`);
-  if (open) {
-    menu.hidden = false;
-    lenis?.stop();
-    html.classList.add('is-locked');
-    requestAnimationFrame(() => requestAnimationFrame(() => html.classList.add('menu-open')));
-  } else {
-    html.classList.remove('menu-open');
-    html.classList.remove('is-locked');
-    lenis?.start();
-    menuTimer = window.setTimeout(() => (menu.hidden = true), 1100);
-  }
-}
-menuBtn.addEventListener('click', () => setMenu(!menuOpen));
-$$<HTMLAnchorElement>('.menu__list a').forEach((a) => {
-  const show = () => {
-    const src = a.dataset.preview!;
-    if (frameImgs[frontImg].getAttribute('src') === src) return;
-    const back = frameImgs[1 - frontImg];
-    back.src = src;
-    back.classList.add('is-front');
-    frameImgs[frontImg].classList.remove('is-front');
-    frontImg = 1 - frontImg;
-    menuCaption.textContent = a.dataset.caption ?? '';
-  };
-  a.addEventListener('pointerenter', show);
-  a.addEventListener('focus', show);
-});
-frameImgs[0].classList.add('is-front');
+let currentChapter = '';
+const menu = createMenu(() => (currentChapter ? Math.max(0, parseInt(currentChapter, 10) - 1) : 0));
 
-$$<HTMLAnchorElement>('a[data-scroll]').forEach((a) =>
+$$<HTMLAnchorElement>('a[data-scroll]').forEach((a) => {
+  if (a.closest('.menu')) return;
   a.addEventListener('click', (e) => {
     const href = a.getAttribute('href');
     if (!href?.startsWith('#')) return;
     e.preventDefault();
-    if (menuOpen) {
-      setMenu(false);
-      window.setTimeout(() => scrollTo(href), 700);
-    } else scrollTo(href);
-  }),
-);
+    scrollToTarget(href);
+  });
+});
 window.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return;
-  if (!lb.hidden) closeFilm();
-  else if (menuOpen) setMenu(false);
+  if (e.key === 'Escape' && !lb.hidden) closeFilm();
 });
 
 /* ================================================================== */
@@ -430,7 +468,6 @@ window.addEventListener('keydown', (e) => {
 const chapter = $('.chapter');
 const chapterNo = $('.chapter__no');
 const chapterName = $('.chapter__name');
-let currentChapter = '';
 const setChapter = (val: string) => {
   if (val === currentChapter) return;
   currentChapter = val;
@@ -511,6 +548,30 @@ $$<HTMLLIElement>('.q').forEach((q) => {
   if (fine) btn.addEventListener('pointermove', (e) => btn.style.setProperty('--x', `${e.clientX - btn.getBoundingClientRect().left}px`));
 });
 
+/* share an answer as a story card */
+$$<HTMLLIElement>('.q').forEach((q) => {
+  const body = $('.q__body > div', q);
+  const btn = document.createElement('button');
+  btn.className = 'q__share link link--line';
+  btn.innerHTML = 'Share this answer <span class="arrow">&nearr;</span>';
+  body.appendChild(btn);
+  let ready: Promise<File | null> | null = null;
+  const prep = () =>
+    (ready ??= answerCard({
+      no: $('.q__no', q).textContent ?? '',
+      field: $('.q__field', q).textContent ?? '',
+      question: $('.q__title', q).textContent ?? '',
+      answer: $('p', body).textContent ?? '',
+    }).then((c) => toFile(c, `pip-explains-${$('.q__no', q).textContent}.png`)));
+  $('.q__row', q).addEventListener('click', () => void prep());
+  btn.addEventListener('click', async () => {
+    const f = await prep();
+    if (!f) return;
+    const r = await shareFile(f, `${$('.q__title', q).textContent} ${location.origin}/#index`);
+    if (r === 'downloaded') btn.firstChild!.textContent = 'Saved to your device ';
+  });
+});
+
 /* ================================================================== */
 /* Follow rows: light fills in from where you enter                      */
 /* ================================================================== */
@@ -575,6 +636,7 @@ let sy = pointer.y;
 let activeWord = -2;
 let heroVisible = true;
 let footerVisible = false;
+let pagePaused = false;
 new IntersectionObserver(([e]) => (heroVisible = e.isIntersecting)).observe(hero);
 new IntersectionObserver(([e]) => (footerVisible = e.isIntersecting)).observe($('.footer'));
 const t0 = performance.now();
@@ -598,7 +660,15 @@ function frame(time: number) {
   const tickerHalf = ticker.scrollWidth / 3;
 
   /* ---- WRITE ---- */
-  if (!menuOpen) {
+  menu.frame();
+  const inMenu = menu.isRunning() && html.classList.contains('menu-open') && !html.classList.contains('menu-closing');
+  if (inMenu !== pagePaused) {
+    pagePaused = inMenu;
+    const hv = $<HTMLVideoElement>('.hero video');
+    if (inMenu) hv.pause();
+    else if (heroVisible) void hv.play().catch(() => undefined);
+  }
+  if (!menu.isRunning()) {
     if (y > 160 && dy > 2) header.classList.add('is-hidden');
     else if (dy < -2 || y < 160) header.classList.remove('is-hidden');
     header.classList.toggle('is-solid', y > 40);
@@ -659,7 +729,7 @@ function frame(time: number) {
     }
   }
 
-  updateEyes(t, vel, eyeRects);
+  if (!pagePaused) updateEyes(t, vel, eyeRects, heroVisible);
 
   if (fine && !reduced) {
     cx = lerp(cx, pointer.x, 0.22);
@@ -670,3 +740,7 @@ function frame(time: number) {
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+
+initLabs();
+initGame();
+initCountdowns();

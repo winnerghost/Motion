@@ -1,0 +1,15 @@
+{
+  "name": "pip-explains-site",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Pip Explains channel website (static: plain HTML + TypeScript, built with Vite).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "lenis": "^1.3.28",
+    "vite": "^6.4.6"
+  }
+}

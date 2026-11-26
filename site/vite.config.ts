@@ -8,5 +8,11 @@ export default defineConfig({
     emptyOutDir: true,
     assetsInlineLimit: 0,
     target: 'es2019',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        notfound: path.resolve(__dirname, '404.html'),
+      },
+    },
   },
 });

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Lights out · Pip Explains</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#040405" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <style>
+      @font-face { font-family: 'Instrument Serif'; src: url('/fonts/instrument-serif-latin-400-normal.woff2') format('woff2'); font-display: swap; }
+      @font-face { font-family: 'Instrument Serif'; src: url('/fonts/instrument-serif-latin-400-italic.woff2') format('woff2'); font-style: italic; font-display: swap; }
+      @font-face { font-family: 'Inter Tight'; src: url('/fonts/inter-tight-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+      :root { --fg: #ece8e1; --muted: #85817a; --accent: #ff8a3d; --ease: cubic-bezier(0.16, 1, 0.3, 1); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: #040405; color: var(--fg); font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow: hidden; }
+      a { color: inherit; text-decoration: none; }
+      .room { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; }
+      .layer { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; pointer-events: none; }
+      .dim { opacity: 0.07; }
+      .lit { --x: 50%; --y: 45%; -webkit-mask-image: radial-gradient(circle min(34vmax, 300px) at var(--x) var(--y), #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%); mask-image: radial-gradient(circle min(34vmax, 300px) at var(--x) var(--y), #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%); }
+      .glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle min(34vmax, 300px) at var(--x, 50%) var(--y, 45%), rgba(255, 210, 170, 0.12), transparent 70%); }
+      .big { font-family: 'Instrument Serif', serif; font-size: min(44vw, 520px); line-height: 0.8; letter-spacing: -0.04em; }
+      .big em { color: var(--accent); }
+      .bulb { position: fixed; left: 50%; top: 9vh; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, #ffe6cc 50%, var(--accent)); box-shadow: 0 0 18px 4px rgba(255, 196, 140, 0.8), 0 0 80px 20px rgba(255, 138, 61, 0.3); animation: flicker 4s steps(1) infinite; }
+      @keyframes flicker { 0%, 100% { opacity: 1; } 71% { opacity: 1; } 72% { opacity: 0.2; } 74% { opacity: 1; } 76% { opacity: 0.35; } 78% { opacity: 1; } }
+      .copy { position: relative; z-index: 2; margin-top: min(46vw, 470px); display: grid; justify-items: center; gap: 18px; }
+      .label { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+      h1 { margin: 0; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(36px, 5vw, 64px); line-height: 1; letter-spacing: -0.02em; }
+      h1 em { color: var(--accent); }
+      p { margin: 0; max-width: 28em; color: #bdb8b0; font-size: 16px; line-height: 1.55; }
+      .pill { margin-top: 10px; display: inline-flex; align-items: center; gap: 12px; height: 54px; padding: 0 26px; border-radius: 999px; background: var(--fg); color: #0a0a0c; font-weight: 500; font-size: 15px; transition: background 0.4s, transform 0.5s var(--ease); }
+      .pill:hover { background: var(--accent); }
+      .foot { position: fixed; left: 0; right: 0; bottom: 26px; display: flex; justify-content: center; gap: 28px; font-size: 13px; color: var(--muted); }
+      .foot a:hover { color: var(--fg); }
+      @media (prefers-reduced-motion: reduce) { .bulb { animation: none; } }
+    </style>
+  </head>
+  <body>
+    <div class="bulb" aria-hidden="true"></div>
+    <div class="layer dim" aria-hidden="true"><div class="big">4<em>0</em>4</div></div>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="layer lit" aria-hidden="true"><div class="big">4<em>0</em>4</div></div>
+    <main class="room">
+      <div class="copy">
+        <span class="label">Error 404 &middot; Page not found</span>
+        <h1>This page is <em>in the dark.</em></h1>
+        <p>Even Pip can&rsquo;t find it. The link may be broken, or the page has moved. Move your light around, then head back.</p>
+        <a class="pill" href="/">Turn the lights back on &rarr;</a>
+      </div>
+    </main>
+    <div class="foot">
+      <a href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </div>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var lit = document.querySelector('.lit');
+        var glow = document.querySelector('.glow');
+        var tx = innerWidth / 2, ty = innerHeight * 0.42, x = tx, y = ty, last = 0;
+        addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; last = performance.now(); }, {passive: true});
+        addEventListener('pointerdown', function (e) { tx = e.clientX; ty = e.clientY; last = performance.now(); }, {passive: true});
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function frame(t) {
+          if (performance.now() - last > 2500) {
+            tx = innerWidth * (0.5 + Math.sin(t / 1900) * 0.3);
+            ty = innerHeight * (0.4 + Math.sin(t / 1300) * 0.12);
+          }
+          x += (tx - x) * (reduce ? 1 : 0.09);
+          y += (ty - y) * (reduce ? 1 : 0.09);
+          var vx = x.toFixed(1) + 'px', vy = y.toFixed(1) + 'px';
+          lit.style.setProperty('--x', vx); lit.style.setProperty('--y', vy);
+          glow.style.setProperty('--x', vx); glow.style.setProperty('--y', vy);
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+        root.className = 'ready';
+      })();
+    </script>
+  </body>
+</html>

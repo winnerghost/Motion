@@ -29,7 +29,6 @@
 
     <div class="spot" aria-hidden="true"></div>
     <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-    <div class="page-shade" aria-hidden="true"></div>
     <div class="chapter label" aria-hidden="true"><span class="chapter__no">00</span><span class="chapter__name"><span>Intro</span></span></div>
 
     <!-- Header -->
@@ -37,7 +36,8 @@
       <a href="#top" class="wordmark" data-scroll aria-label="Pip Explains, back to top">Pip Explains<i class="dot"></i></a>
       <nav class="header__nav" aria-label="Sections">
         <a href="#films" data-scroll><span data-roll>Films</span></a>
-        <a href="#host" data-scroll><span data-roll>The host</span></a>
+        <a href="#labs" data-scroll><span data-roll>Labs</span></a>
+        <a href="#play" data-scroll><span data-roll>Fact or myth</span></a>
         <a href="#index" data-scroll><span data-roll>Index</span></a>
         <a href="#follow" data-scroll><span data-roll>Follow</span></a>
       </nav>
@@ -50,24 +50,30 @@
       </div>
     </header>
 
-    <!-- Menu: opens like a camera iris from the button -->
-    <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <!-- Menu: the lights go out and Pip's antenna becomes a spotlight -->
+    <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" hidden>
+      <div class="menu__dark"></div>
+      <div class="menu__pool" aria-hidden="true"><div class="menu__pool-inner"><img src="/media/hero.jpg" alt="" class="is-front" /><img src="/media/hero.jpg" alt="" /></div><i class="menu__pool-glow"></i></div>
+      <div class="menu__beam" aria-hidden="true"></div>
       <div class="menu__inner">
         <nav class="menu__list">
           <a href="#top" data-scroll data-preview="/media/hero.jpg" data-caption="Curiosity, answered."><span class="menu__no">01</span><span class="menu__txt" data-letters>Home</span></a>
-          <a href="#films" data-scroll data-preview="/media/ep004.jpg" data-caption="Latest films, every day"><span class="menu__no">02</span><span class="menu__txt" data-letters>Films</span></a>
-          <a href="#host" data-scroll data-preview="/media/host.jpg" data-caption="Pip, your host"><span class="menu__no">03</span><span class="menu__txt" data-letters>The host</span></a>
-          <a href="#index" data-scroll data-preview="/media/ep001.jpg" data-caption="Every question, indexed"><span class="menu__no">04</span><span class="menu__txt" data-letters>Index</span></a>
-          <a href="#follow" data-scroll data-preview="/media/ep002.jpg" data-caption="Join the curious"><span class="menu__no">05</span><span class="menu__txt" data-letters>Follow</span></a>
+          <a href="#films" data-scroll data-preview="/media/ep004.jpg" data-caption="New films, every day."><span class="menu__no">02</span><span class="menu__txt" data-letters>Films</span></a>
+          <a href="#labs" data-scroll data-preview="/media/ep001.jpg" data-caption="Run the experiments yourself."><span class="menu__no">03</span><span class="menu__txt" data-letters>Labs</span></a>
+          <a href="#play" data-scroll data-preview="/media/ep002.jpg" data-caption="Five statements. Fact or myth?"><span class="menu__no">04</span><span class="menu__txt" data-letters>Fact or myth</span></a>
+          <a href="#host" data-scroll data-preview="/media/host.jpg" data-caption="Pip, your host."><span class="menu__no">05</span><span class="menu__txt" data-letters>The host</span></a>
+          <a href="#index" data-scroll data-preview="/media/ep001.jpg" data-caption="Every question, indexed."><span class="menu__no">06</span><span class="menu__txt" data-letters>Index</span></a>
+          <a href="#follow" data-scroll data-preview="/media/hero.jpg" data-caption="Join the curious."><span class="menu__no">07</span><span class="menu__txt" data-letters>Follow</span></a>
         </nav>
-        <figure class="menu__preview" aria-hidden="true">
-          <div class="menu__frame"><img src="/media/hero.jpg" alt="" /><img src="/media/hero.jpg" alt="" /><span class="menu__beam"></span></div>
-          <figcaption class="label">Curiosity, answered.</figcaption>
-        </figure>
+        <div class="menu__side" aria-hidden="true">
+          <span class="label">Now lighting</span>
+          <p class="menu__caption">Curiosity, answered.</p>
+          <span class="menu__count label"><b>01</b> / 07</span>
+        </div>
         <div class="menu__foot">
           <a href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer" class="link">YouTube <span>@pipexplainsfacts</span></a>
           <a href="https://www.instagram.com/pip.explainsfacts" target="_blank" rel="noopener noreferrer" class="link">Instagram <span>@pip.explainsfacts</span></a>
-          <span class="label menu__tag">A daily science series · Est. 2026</span>
+          <span class="label menu__tag">Next film in <b class="countdown" data-drop>--:--:--</b></span>
         </div>
       </div>
     </div>
@@ -132,11 +138,11 @@
               </svg>
             </div>
           </div>
-          <figcaption class="caption"><span class="label">Fig. 01</span> Pip, host of Pip Explains <span class="live"><i></i>He&rsquo;s watching</span></figcaption>
+          <figcaption class="caption"><span class="label">Fig. 01</span> Pip, host of Pip Explains <span class="live"><i></i><span class="mood">He&rsquo;s watching</span></span></figcaption>
         </figure>
         <div class="hero__bottom">
           <span class="label scroll-hint"><i></i>Scroll to explore</span>
-          <span class="label hero__platforms">YouTube Shorts &middot; Instagram Reels</span>
+          <span class="label hero__next"><i></i>Next film in <b class="countdown" data-drop>--:--:--</b></span>
         </div>
       </section>
 
@@ -239,8 +245,77 @@
         </div>
       </section>
 
+
+      <!-- Labs -->
+      <section class="section labs" id="labs" data-chapter="03|Labs">
+        <div class="labs__head">
+          <div>
+            <p class="label section__label" data-reveal>03 &mdash; Labs</p>
+            <h2 class="h2" data-split>Try it <em>yourself.</em></h2>
+          </div>
+          <p class="labs__intro" data-reveal>Every film comes with an experiment you can run right here. Nothing you do leaves your device.</p>
+        </div>
+        <div class="labs__grid">
+          <article class="lab lab--voice" data-reveal>
+            <header class="lab__head">
+              <span class="label">Lab 01 &middot; From film No. 003</span>
+              <h3>Your two voices</h3>
+              <p>Record a few seconds of yourself. Then hear it the way you do, and the way everyone else does.</p>
+            </header>
+            <div class="voice">
+              <canvas class="voice__viz" width="720" height="240" aria-hidden="true"></canvas>
+              <button class="voice__rec" aria-label="Record your voice">
+                <svg class="voice__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" /><circle class="voice__prog" cx="60" cy="60" r="56" /></svg>
+                <span class="voice__dot"></span>
+              </button>
+              <p class="voice__status">Tap to record (up to 4 seconds)</p>
+              <button class="voice__alt link link--line">No mic? Use Pip&rsquo;s voice</button>
+              <div class="voice__play" hidden>
+                <button class="vbtn" data-mode="head"><i></i>In your head</button>
+                <button class="vbtn" data-mode="air"><i></i>What others hear</button>
+              </div>
+              <p class="voice__note label">Simulated with filters. Your recording never leaves this page.</p>
+            </div>
+          </article>
+          <article class="lab lab--tickle" data-reveal>
+            <header class="lab__head">
+              <span class="label">Lab 02 &middot; From film No. 001</span>
+              <h3>The tickle delay</h3>
+              <p>Tap the pad and the light answers your touch. Add a fraction of a second of delay and notice how it stops feeling like yours.</p>
+            </header>
+            <div class="pad" role="button" tabindex="0" aria-label="Tap pad"><span class="pad__hint label">Tap anywhere</span></div>
+            <div class="delay">
+              <label class="label" for="delay">Robot delay</label>
+              <input id="delay" type="range" min="0" max="300" step="10" value="0" />
+              <output class="delay__val" for="delay">0 ms</output>
+            </div>
+            <div class="feel">
+              <div class="feel__bar"><i></i></div>
+              <div class="feel__ends label"><span>Brain predicts it</span><span>Brain is surprised</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Daily game -->
+      <section class="section game" id="play" data-chapter="04|Fact or myth">
+        <div class="game__head">
+          <p class="label section__label" data-reveal>04 &mdash; Daily game</p>
+          <h2 class="h2" data-split>Fact or <em>myth?</em></h2>
+          <p class="game__sub" data-reveal>Five statements a day. Tap, or swipe the card right for fact and left for myth. A new set every midnight.</p>
+        </div>
+        <div class="game__stage" data-reveal>
+          <div class="game__meta label"><span class="game__no">Set No. 1</span><span class="game__dots"></span><span class="game__streak">Streak 0</span></div>
+          <div class="game__deck"></div>
+          <div class="game__actions">
+            <button class="gbtn gbtn--myth" data-answer="myth" data-cursor="Myth"><span>&larr;</span> Myth</button>
+            <button class="gbtn gbtn--fact" data-answer="fact" data-cursor="Fact">Fact <span>&rarr;</span></button>
+          </div>
+        </div>
+      </section>
+
       <!-- Host -->
-      <section class="section host" id="host" data-chapter="03|The host">
+      <section class="section host" id="host" data-chapter="05|The host">
         <figure class="host__media">
           <div class="frame frame--host" data-clip>
             <div class="stage">
@@ -264,7 +339,7 @@
           <figcaption class="caption"><span class="label">Fig. 02</span> Portrait of the host <span class="live"><i></i>Still watching</span></figcaption>
         </figure>
         <div class="host__text">
-          <p class="label section__label" data-reveal>03 &mdash; The host</p>
+          <p class="label section__label" data-reveal>05 &mdash; The host</p>
           <h2 class="h2" data-split>Meet <em>Pip.</em></h2>
           <p class="host__lead" data-reveal>
             Pip is the narrator behind every film: a small, endlessly curious character designed to make complicated ideas feel simple, without making them any less true.
@@ -279,10 +354,10 @@
       </section>
 
       <!-- Index -->
-      <section class="section index" id="index" data-chapter="04|Index">
+      <section class="section index" id="index" data-chapter="06|Index">
         <div class="index__head">
           <div>
-            <p class="label section__label" data-reveal>04 &mdash; Index</p>
+            <p class="label section__label" data-reveal>06 &mdash; Index</p>
             <h2 class="h2" data-split>The question <em>index.</em></h2>
           </div>
           <div class="filters" role="tablist" aria-label="Filter questions" data-reveal>
@@ -305,8 +380,8 @@
       </section>
 
       <!-- Follow -->
-      <section class="section follow" id="follow" data-chapter="05|Follow">
-        <p class="label section__label" data-reveal>05 &mdash; Follow</p>
+      <section class="section follow" id="follow" data-chapter="07|Follow">
+        <p class="label section__label" data-reveal>07 &mdash; Follow</p>
         <h2 class="follow__title" data-split>Join the <em>curious.</em></h2>
         <div class="platforms">
           <a class="platform" href="https://www.youtube.com/@pipexplainsfacts" target="_blank" rel="noopener noreferrer" data-reveal data-cursor="Subscribe">
@@ -341,6 +416,8 @@
         </span>
       </div>
     </footer>
+
+    <div class="toast" role="status" aria-live="polite"><span class="label toast__label">You found a secret</span><p class="toast__text"></p></div>
 
     <!-- Lightbox -->
     <div class="lightbox" role="dialog" aria-modal="true" aria-label="Film" hidden>

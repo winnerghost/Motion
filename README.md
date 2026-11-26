@@ -44,22 +44,32 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 
 ## Website (link in bio)
 
-`site/` is the channel's website: a fast, editorial single page (plain HTML + TypeScript, ~11 KB of JS gzipped).
+`site/` is the channel's website: a fast, editorial single page (plain HTML + TypeScript, ~26 KB of JS gzipped, no framework).
 
 Signature motion, built around Pip's antenna light:
+- **Lights-out menu**: the page loses power with a flicker, the menu button becomes Pip's glowing bulb, and a dusty spotlight beam swings across the dark room to light each word letter by letter. The pool of light reveals a picture on the wall. Picking a section cuts the light, moves you there in the dark, and the lights flicker back on in the new room (`site/src/menu.ts`)
 - **Lights on** intro: a bulb flickers awake and its spotlight opens onto the stage
 - **"Curiosity?" → "Curiosity, answered."** headline sequence with a light sweep
-- **Pip watches you**: live pupils drawn over blank-eyed video loops (`Lux-Hero`, `Lux-Host` in `src/web/LuxClips.tsx`) follow the cursor / finger, with natural blinking
-- **Spotlight cursor** that reveals hidden science sketches in the hero
-- **Projector reel**: the pinned film gallery swings cards in 3D toward the light
-- Manifesto words light up as they're read (like the captions in the films), camera-iris menu, light-fill platform rows, letters that catch the light near the cursor, vertical chapter marker
-- One rAF loop that measures first and writes after; transform/opacity only; ~60 fps on desktop and on a 4×-throttled phone
+- **Pip watches you**: live pupils and eyelids drawn over blank-eyed video loops (`Lux-Hero`, `Lux-Host` in `src/web/LuxClips.tsx`). He follows the cursor or finger, blinks, squints when you get close, gets sleepy after 11 pm, dozes off if you go quiet, and gets dizzy if you fling the page
+- **Projector reel** film gallery, manifesto words that light up as they are read, light-fill platform rows, footer letters that catch the light
+- One rAF loop that measures first and writes after; transform/opacity only; the beam is pre-rendered once so the menu runs at ~60 fps
+
+Interactive features:
+- **Labs** (`labs.ts`): *Your two voices* records 4 s from the mic (or uses a sample of Pip's voice) and plays it back "in your head" (bone-conduction filters) vs. "as others hear it"; nothing is uploaded. *The tickle delay* adds 0–300 ms between your tap and the light, after Blakemore, Wolpert & Frith (1999)
+- **Fact or myth** (`game.ts`, statements in `facts.ts`): five statements a day, the same set for everyone, swipe or tap, streaks saved on the device, and a 1080×1920 story card to share the score (`share.ts`)
+- **Share this answer**: every question in the index can be shared as a story card
+- **Next-film countdown** (daily at 7:00 PM IST, set in `site/src/countdown.ts`)
+- Type **"why"** anywhere for a secret fact; custom **404** page ("This page is in the dark")
 
 ```bash
-npx vite build --config site/vite.config.ts   # -> site/dist
-npx vite preview --config site/vite.config.ts # local preview on :4173
+cd site && npm install && npm run build   # -> site/dist
+# or from the repo root (uses the root node_modules):
+npx vite build --config site/vite.config.ts
+npx vite preview --config site/vite.config.ts   # local preview on :4173
 ```
-Deploy: upload the contents of `site/dist` plus `site/vercel.json` (caching headers) to the Vercel project.
+Deploy:
+- **Vercel linked to this GitHub repo**: the root `vercel.json` builds `site/` and serves `site/dist`, so every push deploys automatically.
+- **Manual upload**: deploy the contents of `site/dist` plus `site/vercel.json` (caching headers, clean URLs).
 
 ## What's in here
 

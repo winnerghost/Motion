@@ -1,0 +1,58 @@
+/* Fact or myth: every statement is checked against mainstream science sources. */
+export type Statement = {id: string; text: string; fact: boolean; why: string};
+
+export const STATEMENTS: Statement[] = [
+  // ---- facts ----
+  {id: 'tickle', fact: true, text: 'You can’t tickle yourself because your brain predicts your own touch.', why: 'Your cerebellum forecasts the feel of your own movements and turns the signal down, so there is no surprise left to tickle.'},
+  {id: 'banana', fact: true, text: 'Bananas are slightly radioactive.', why: 'They contain potassium-40, a natural radioactive isotope. The dose from eating one is tiny and completely harmless.'},
+  {id: 'wrinkle', fact: true, text: 'Fingers wrinkle in water because of your nervous system, not because water soaks in.', why: 'Nerves narrow the blood vessels under the skin. People with certain nerve damage don’t get wrinkly fingers at all.'},
+  {id: 'wombat', fact: true, text: 'Wombats produce cube-shaped droppings.', why: 'The last part of their intestine has stiff and stretchy regions that shape the corners and flat sides.'},
+  {id: 'octopus', fact: true, text: 'An octopus has three hearts.', why: 'Two pump blood through the gills, and a third pumps it around the rest of the body.'},
+  {id: 'venus', fact: true, text: 'A day on Venus is longer than its year.', why: 'Venus takes about 243 Earth days to spin once, but only about 225 to orbit the Sun.'},
+  {id: 'sharks', fact: true, text: 'Sharks existed before trees.', why: 'Sharks appear in the fossil record around 450 million years ago. The first trees grew roughly 385 million years ago.'},
+  {id: 'sunlight', fact: true, text: 'Sunlight takes about eight minutes to reach Earth.', why: 'Light covers the 150 million km in roughly 8 minutes and 20 seconds, so you always see the Sun slightly in the past.'},
+  {id: 'triple', fact: true, text: 'Water can boil and freeze at the same time.', why: 'At its triple point (0.01 °C and very low pressure) water exists as solid, liquid and gas at once.'},
+  {id: 'eiffel', fact: true, text: 'The Eiffel Tower gets taller in summer.', why: 'Its iron expands in the heat, which can add up to about 15 cm to its height.'},
+  {id: 'koala', fact: true, text: 'Koalas have fingerprints remarkably similar to ours.', why: 'Their prints are so close to human ones that they can be hard to tell apart, even under a microscope.'},
+  {id: 'butterfly', fact: true, text: 'Butterflies taste with their feet.', why: 'Taste receptors on their feet tell them whether a leaf is the right plant to lay eggs on.'},
+  {id: 'stomach', fact: true, text: 'The lining of your stomach replaces itself every few days.', why: 'The surface cells face strong acid, so the body renews them roughly every three to five days.'},
+  {id: 'neutron', fact: true, text: 'A teaspoon of neutron star would weigh billions of tonnes.', why: 'Neutron stars pack more than the mass of the Sun into a ball about 20 km wide.'},
+  {id: 'voice', fact: true, text: 'Your voice sounds deeper to you than to everyone else.', why: 'You also hear yourself through the bones of your skull, which carry low frequencies best.'},
+  {id: 'gallium', fact: true, text: 'Some metals can melt in your hand.', why: 'Gallium melts at about 29.8 °C, below body temperature.'},
+  {id: 'trees', fact: true, text: 'There are more trees on Earth than stars in our galaxy.', why: 'Estimates put Earth at about 3 trillion trees, against roughly 100 to 400 billion stars in the Milky Way.'},
+  {id: 'lightning-hot', fact: true, text: 'A lightning bolt is hotter than the surface of the Sun.', why: 'Lightning can heat the air to around 30,000 °C, about five times hotter than the Sun’s surface.'},
+  {id: 'dna', fact: true, text: 'The DNA in your body, stretched out, would reach Pluto and back several times.', why: 'Each cell holds about 2 m of DNA and you have tens of trillions of cells.'},
+  {id: 'sound-water', fact: true, text: 'Sound travels about four times faster in water than in air.', why: 'Roughly 1,480 m/s in water against about 343 m/s in air.'},
+  // ---- myths ----
+  {id: 'goldfish', fact: false, text: 'Goldfish only have a three-second memory.', why: 'Goldfish can remember things for months and can be trained to respond to sounds and colours.'},
+  {id: 'brain10', fact: false, text: 'We only use 10% of our brains.', why: 'Brain scans show activity across virtually every region, even during sleep.'},
+  {id: 'lightning-twice', fact: false, text: 'Lightning never strikes the same place twice.', why: 'Tall structures get hit again and again. The Empire State Building is struck about 20 times a year.'},
+  {id: 'greatwall', fact: false, text: 'The Great Wall of China is visible from the Moon.', why: 'It is far too narrow. From the Moon, no individual human structure can be seen with the naked eye.'},
+  {id: 'bulls', fact: false, text: 'Bulls are enraged by the colour red.', why: 'Bulls are red-green colour-blind. It is the movement of the cape that provokes them.'},
+  {id: 'knuckles', fact: false, text: 'Cracking your knuckles causes arthritis.', why: 'Studies, including one doctor who cracked only one hand for 60 years, found no link.'},
+  {id: 'bats', fact: false, text: 'Bats are blind.', why: 'All bats can see. Many also use echolocation, and some see very well.'},
+  {id: 'senses', fact: false, text: 'Humans have only five senses.', why: 'You also sense balance, temperature, pain and where your body is in space, among others.'},
+  {id: 'hairdeath', fact: false, text: 'Hair and nails keep growing after death.', why: 'The skin dries and pulls back, which only makes them look longer.'},
+  {id: 'chameleon', fact: false, text: 'Chameleons change colour mainly to blend into their background.', why: 'They change colour mostly to signal mood and to control their temperature.'},
+  {id: 'ostrich', fact: false, text: 'Ostriches bury their heads in the sand when scared.', why: 'They lower their heads to turn their eggs in ground nests, which from afar looks like burying.'},
+  {id: 'shaving', fact: false, text: 'Shaving makes hair grow back thicker.', why: 'Shaving leaves a blunt tip that can feel coarser, but it doesn’t change thickness, colour or growth rate.'},
+  {id: 'everest', fact: false, text: 'Mount Everest is the tallest mountain from base to peak.', why: 'It is the highest above sea level. Measured from its base on the ocean floor, Mauna Kea is taller.'},
+  {id: 'tongue', fact: false, text: 'Different parts of your tongue taste different flavours.', why: 'The famous “tongue map” came from a mistranslation. Every taste can be detected all over the tongue.'},
+  {id: 'blueblood', fact: false, text: 'Blood is blue inside your body.', why: 'Blood is always red. Veins only look blue because of how light passes through skin.'},
+  {id: 'sugar', fact: false, text: 'Sugar makes children hyperactive.', why: 'Controlled studies found no difference in behaviour between children given sugar and those given a placebo.'},
+  {id: 'glass', fact: false, text: 'Glass is a liquid that flows very slowly.', why: 'Glass is an amorphous solid. Old windows are uneven because of how they were made.'},
+  {id: 'birds', fact: false, text: 'Birds abandon chicks that humans have touched.', why: 'Most birds have a poor sense of smell and won’t reject a chick because of human scent.'},
+  {id: 'darkside', fact: false, text: 'The far side of the Moon never gets sunlight.', why: 'It gets as much sunlight as the near side. It simply never faces Earth.'},
+  {id: 'seasons', fact: false, text: 'Seasons happen because Earth gets closer to the Sun in summer.', why: 'Seasons come from Earth’s tilt. Earth is actually closest to the Sun in early January.'},
+];
+
+export const SECRETS = [
+  'Bananas are berries, but strawberries aren’t.',
+  'A group of flamingos is called a flamboyance.',
+  'Venus spins backwards, so the Sun rises in the west there.',
+  'Your body gives off a faint glow, about a thousand times too weak for your eyes to see.',
+  'A day on Mercury, sunrise to sunrise, lasts about 176 Earth days.',
+  'Earth isn’t a perfect sphere. It bulges at the equator because it spins.',
+  'Honey kept sealed basically never spoils: it is too dry and acidic for microbes.',
+  'Octopus arms can taste what they touch.',
+];
