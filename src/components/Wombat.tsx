@@ -191,7 +191,7 @@ export const Rock: React.FC<{x: number; y: number; scale?: number}> = ({x, y, sc
 );
 
 /** Gold trophy. */
-export const Trophy: React.FC<{x: number; y: number; scale?: number; t: number}> = ({x, y, scale = 1, t}) => (
+export const Trophy: React.FC<{x: number; y: number; scale?: number; t: number; year?: string}> = ({x, y, scale = 1, t, year = '2019'}) => (
   <g transform={`translate(${x} ${y}) scale(${scale}) rotate(${wobble(t, 1, 'tr') * 3})`}>
     <defs>
       <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
@@ -212,7 +212,7 @@ export const Trophy: React.FC<{x: number; y: number; scale?: number; t: number}>
     <rect x={-70} y={-50} width={140} height={50} rx={10} fill="#3B3480" stroke="url(#gold)" strokeWidth={6} />
     <ellipse cx={-40} cy={-215} rx={18} ry={30} fill="#fff" opacity={0.45} />
     <text x={0} y={-17} textAnchor="middle" fontFamily={FONT_HEAD} fontWeight={800} fontSize={26} fill={C.yellow}>
-      2019
+      {year}
     </text>
   </g>
 );

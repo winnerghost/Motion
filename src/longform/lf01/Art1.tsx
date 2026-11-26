@@ -417,7 +417,7 @@ export const ArtKnuckles: React.FC<ArtProps> = ({t, W}) => {
       )}
       {trophy > 0.001 && (
         <g>
-          <Trophy x={430} y={-60} scale={0.9 * trophy} t={t} />
+          <Trophy x={430} y={-60} scale={0.9 * trophy} t={t} year="2009" />
           <SPill x={430} y={140} text="IG NOBEL PRIZE 2009" s={trophy} bg={C.yellow} size={26} />
         </g>
       )}
