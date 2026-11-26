@@ -9,6 +9,7 @@ import {Episode001, EP001_DURATION} from './episodes/ep001/Episode';
 import {Episode002, EP002_DURATION} from './episodes/ep002/Episode';
 import {Episode003, EP003_DURATION} from './episodes/ep003/Episode';
 import {Episode004, EP004_DURATION} from './episodes/ep004/Episode';
+import {Episode005, EP005_DURATION} from './episodes/ep005/Episode';
 import {loadFonts} from './lib/theme';
 import {FPS, W, H} from './lib/anim';
 
@@ -20,6 +21,7 @@ export const Root: React.FC = () => (
     <Composition id="EP002-tickle-foot-reply" component={Episode002} durationInFrames={EP002_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP003-wombat-cubes" component={Episode003} durationInFrames={EP003_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP004-recorded-voice" component={Episode004} durationInFrames={EP004_DURATION} fps={FPS} width={W} height={H} />
+    <Composition id="EP005-no-head-reply" component={Episode005} durationInFrames={EP005_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="PipSheet" component={PipSheet} durationInFrames={120} fps={FPS} width={W} height={H} />
     <Composition id="WombatSheet" component={WombatSheet} durationInFrames={60} fps={FPS} width={W} height={H} />
     <Composition id="Web-Hello" component={ClipHello} durationInFrames={8 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />

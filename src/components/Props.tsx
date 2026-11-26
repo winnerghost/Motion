@@ -513,7 +513,10 @@ export const CommentCard: React.FC<{
   s?: number;
   rot?: number;
   label?: string;
-}> = ({x, y, user, text, s = 1, rot = 0, label = 'Replying to'}) => (
+  /** override the chip text / the display name (e.g. when the username isn't shown) */
+  tag?: string;
+  name?: string;
+}> = ({x, y, user, text, s = 1, rot = 0, label = 'Replying to', tag, name}) => (
   <div
     style={{
       position: 'absolute',
@@ -542,7 +545,7 @@ export const CommentCard: React.FC<{
         boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
       }}
     >
-      {label.toUpperCase()} @{user.toUpperCase()}
+      {tag ?? `${label.toUpperCase()} @${user.toUpperCase()}`}
     </div>
     <div
       style={{
@@ -574,7 +577,7 @@ export const CommentCard: React.FC<{
         {user.slice(0, 1).toUpperCase()}
       </div>
       <div>
-        <div style={{fontFamily: FONT_DISPLAY, fontWeight: 600, fontSize: 38, color: '#3B3570'}}>{user}</div>
+        <div style={{fontFamily: FONT_DISPLAY, fontWeight: 600, fontSize: 38, color: '#3B3570'}}>{name ?? user}</div>
         <div style={{fontFamily: `${FONT_DISPLAY}, "Noto Color Emoji"`, fontWeight: 500, fontSize: 58, lineHeight: 1.15, color: C.ink, marginTop: 4}}>
           {text}
         </div>
