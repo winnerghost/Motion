@@ -44,18 +44,22 @@ script ─► ElevenLabs voiceover ─► word timestamps ─► scenes (React +
 
 ## Website (link in bio)
 
-`site/` is the channel's website: a fast, editorial single page (plain HTML + TypeScript, ~10 KB of JS).
+`site/` is the channel's website: a fast, editorial single page (plain HTML + TypeScript, ~11 KB of JS gzipped).
 
-- Preloader with counter, curtain-style menu with live previews, custom cursor (desktop), smooth scrolling (desktop)
-- Cinematic hero loop of Pip (`src/web/LuxClips.tsx` → `Lux-Hero`, `Lux-Host`, share card `Lux-Og`)
-- Scroll-scrubbed manifesto, pinned horizontal film gallery with a lightbox player, question index with filters, platform links
-- All motion is transform/opacity only; videos play only while visible
+Signature motion, built around Pip's antenna light:
+- **Lights on** intro: a bulb flickers awake and its spotlight opens onto the stage
+- **"Curiosity?" → "Curiosity, answered."** headline sequence with a light sweep
+- **Pip watches you**: live pupils drawn over blank-eyed video loops (`Lux-Hero`, `Lux-Host` in `src/web/LuxClips.tsx`) follow the cursor / finger, with natural blinking
+- **Spotlight cursor** that reveals hidden science sketches in the hero
+- **Projector reel**: the pinned film gallery swings cards in 3D toward the light
+- Manifesto words light up as they're read (like the captions in the films), camera-iris menu, light-fill platform rows, letters that catch the light near the cursor, vertical chapter marker
+- One rAF loop that measures first and writes after; transform/opacity only; ~60 fps on desktop and on a 4×-throttled phone
 
 ```bash
 npx vite build --config site/vite.config.ts   # -> site/dist
 npx vite preview --config site/vite.config.ts # local preview on :4173
 ```
-Deploy by dragging the contents of `site/dist` (plus a `netlify.toml` with `publish = "."`) onto the Netlify project's Deploys page.
+Deploy: upload the contents of `site/dist` plus `site/vercel.json` (caching headers) to the Vercel project.
 
 ## What's in here
 

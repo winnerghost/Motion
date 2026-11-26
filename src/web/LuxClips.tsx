@@ -70,48 +70,45 @@ const Studio: React.FC<{w: number; h: number; t: number; L: number; floorY: numb
 
 const Vignette: React.FC = () => <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.72) 100%)'}} />;
 
-/* Hero: Pip on stage, full body, 4:5 ------------------------------------ */
+/* Hero: Pip on stage, full body, 4:5 ------------------------------------
+ * The body stays perfectly still and the eyes are blank: the website draws
+ * live pupils on top that follow the visitor. Eye centres (video px):
+ * (452.2, 786.1) and (627.8, 786.1), whites rx 61 / ry 73.2.            */
 export const LuxHero: React.FC = () => {
   const L = 8;
   const t = (useCurrentFrame() / LUX_FPS) % L;
   const W = 1080;
   const H = 1350;
-  const push = 1 + 0.025 * (1 - Math.cos((TAU * t) / L)) / 2;
-  const breath = Math.sin((TAU * t) / 4);
   return (
     <AbsoluteFill style={{overflow: 'hidden'}}>
-      <AbsoluteFill style={{transform: `scale(${push})`, transformOrigin: '50% 60%'}}>
-        <Studio w={W} h={H} t={t} L={L} floorY={1130} />
-        <svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
-          <Pip
-            id="luxhero"
-            t={2.2}
-            pose={{
-              x: 540,
-              y: 1135,
-              scale: 1.22,
-              squash: 1 + breath * 0.012,
-              tilt: Math.sin((TAU * t) / L) * 1.6,
-              lookX: Math.sin((TAU * t) / L) * 0.42,
-              lookY: -0.06 + Math.sin((TAU * 2 * t) / L) * 0.05,
-              lid: blinkAt(t, [2.4, 5.9]),
-              smile: 0.32,
-              browL: 0.12,
-              browR: 0.12,
-              blush: 0.25,
-              antennaGlow: 0.55 + 0.45 * Math.pow(Math.sin((TAU * t) / L), 2),
-              handL: [-206, 124],
-              handR: [206, 124],
-            }}
-          />
-        </svg>
-      </AbsoluteFill>
+      <Studio w={W} h={H} t={t} L={L} floorY={1130} />
+      <svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
+        <Pip
+          id="luxhero"
+          t={2.2}
+          blankEyes
+          pose={{
+            x: 540,
+            y: 1135,
+            scale: 1.22,
+            smile: 0.32,
+            browL: 0.12,
+            browR: 0.12,
+            blush: 0.25,
+            antennaGlow: 0.55 + 0.45 * Math.pow(Math.sin((TAU * t) / L), 2),
+            handL: [-206, 124],
+            handR: [206, 124],
+          }}
+        />
+      </svg>
       <Vignette />
     </AbsoluteFill>
   );
 };
 
-/* Host portrait: close-up, 1:1 ------------------------------------------ */
+/* Host portrait: close-up, 1:1 -------------------------------------------
+ * Still body, blank eyes (live pupils on the website). Eye centres (video px):
+ * (396, 788) and (684, 788), whites rx 100 / ry 120.                        */
 export const LuxHost: React.FC = () => {
   const L = 6;
   const t = (useCurrentFrame() / LUX_FPS) % L;
@@ -124,18 +121,15 @@ export const LuxHost: React.FC = () => {
         <Pip
           id="luxhost"
           t={2.2}
+          blankEyes
           pose={{
             x: 540,
             y: 1360,
             scale: 2.0,
-            lookX: Math.sin((TAU * t) / L) * 0.5,
-            lookY: Math.sin((TAU * 2 * t) / L) * 0.18,
-            lid: blinkAt(t, [3.3]),
             smile: 0.38,
-            browL: 0.15 + Math.max(0, Math.sin((TAU * t) / L)) * 0.25,
+            browL: 0.2,
             browR: 0.15,
             blush: 0.25,
-            squash: 1 + Math.sin((TAU * t) / 3) * 0.01,
             antennaGlow: 0.6 + 0.4 * Math.pow(Math.sin((TAU * t) / L), 2),
             handL: [-200, 300],
             handR: [200, 300],

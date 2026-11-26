@@ -154,7 +154,8 @@ const Eye: React.FC<{
   lid: number;
   happy: number;
   lidColor: string;
-}> = ({id, cx, cy, lookX, lookY, lid, happy, lidColor}) => {
+  blank?: boolean;
+}> = ({id, cx, cy, lookX, lookY, lid, happy, lidColor, blank = false}) => {
   const rx = 50;
   const ry = 60;
   const lidY = -ry - 4 + Math.min(1, lid) * (2 * ry + 8);
@@ -168,12 +169,12 @@ const Eye: React.FC<{
         <g clipPath={`url(#${id}-clip)`}>
           <ellipse cx={0} cy={0} rx={rx} ry={ry} fill="#fff" />
           <ellipse cx={0} cy={-ry * 0.55} rx={rx} ry={ry * 0.5} fill="#DCD8F0" opacity={0.55} />
-          <g transform={`translate(${lookX * 20} ${lookY * 24})`}>
+          {!blank && <g transform={`translate(${lookX * 20} ${lookY * 24})`}>
             <circle r={31} fill="#2B2A6B" />
             <circle r={20} fill={COL.ink} />
             <circle cx={-10} cy={-11} r={10} fill="#fff" />
             <circle cx={9} cy={10} r={4.5} fill="#fff" opacity={0.85} />
-          </g>
+          </g>}
           {lid > 0.01 && (
             <path
               d={`M ${-rx - 10} ${-ry - 20} L ${rx + 10} ${-ry - 20} L ${rx + 10} ${lidY} Q 0 ${lidY + sag * 2} ${-rx - 10} ${lidY} Z`}
@@ -221,7 +222,9 @@ export const Pip: React.FC<{
   id?: string;
   /** Something Pip holds, drawn in Pip's local coordinates just behind the hands. */
   holding?: React.ReactNode;
-}> = ({pose: partial, t, id = 'pip', holding}) => {
+  /** Draw the eye whites only, so live pupils can be layered on top (website). */
+  blankEyes?: boolean;
+}> = ({pose: partial, t, id = 'pip', holding, blankEyes = false}) => {
   const p: PipPose = {...PIP_REST, ...partial};
   const breathe = Math.sin(t * Math.PI * 0.9) * 0.012;
   const sq = p.squash + breathe + p.talk * 0.025;
@@ -342,8 +345,8 @@ export const Pip: React.FC<{
             <ellipse cx={122} cy={24} rx={32} ry={18} fill="#FF4F8B" opacity={0.12 + p.blush * 0.5} filter={`url(#${id}-soft)`} />
 
             {/* eyes */}
-            <Eye id={`${id}-eL`} cx={-72} cy={-48} lookX={p.lookX} lookY={p.lookY} lid={lid} happy={p.happyEyes} lidColor="#FFA244" />
-            <Eye id={`${id}-eR`} cx={72} cy={-48} lookX={p.lookX} lookY={p.lookY} lid={lid} happy={p.happyEyes} lidColor="#FF9A3C" />
+            <Eye id={`${id}-eL`} cx={-72} cy={-48} lookX={p.lookX} lookY={p.lookY} lid={lid} happy={p.happyEyes} lidColor="#FFA244" blank={blankEyes} />
+            <Eye id={`${id}-eR`} cx={72} cy={-48} lookX={p.lookX} lookY={p.lookY} lid={lid} happy={p.happyEyes} lidColor="#FF9A3C" blank={blankEyes} />
 
             {/* brows */}
             <rect
