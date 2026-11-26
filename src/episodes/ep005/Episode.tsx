@@ -12,7 +12,7 @@ import {cam, Cue, envAt, shotStyle, SoundDesign, Stage, Svg} from '../../lib/sho
 import {C, FONT_DISPLAY} from '../../lib/theme';
 
 /**
- * FACT #003 · PART 2 — reply to "what if we don't have head"
+ * FACT #003 · PART 2 — reply to @en.zai: "What if I don't have a head?"
  *
  * Science (source-filter model of speech, Fant 1960):
  * - Hearing happens in the inner ear, inside the skull: no head, no hearing.
@@ -36,7 +36,7 @@ export const EP005_DURATION = Math.ceil((timing.duration + 0.6) * FPS);
 const END = EP005_DURATION / FPS;
 const talkAt = (t: number) => envAt(env, t);
 
-export const COMMENT = {text: 'what if we don’t have head'};
+export const COMMENT = {user: 'en.zai', text: "What if I don't have a head?"};
 
 const T = {
   head1: w(8),
@@ -123,7 +123,7 @@ const ShotComment: React.FC<{t: number}> = ({t}) => {
       </Stage>
       <Overlay style={st}>
         <AbsoluteFill style={{transform: `translateY(${-cardOut * 300}px)`, opacity: 1 - cardOut}}>
-          <CommentCard x={540} y={720} user="viewer" name="A viewer on Instagram" tag="REPLYING TO A COMMENT" text={COMMENT.text} s={cardS} rot={-2} />
+          <CommentCard x={540} y={720} user={COMMENT.user} text={COMMENT.text} s={cardS} rot={-2} />
         </AbsoluteFill>
         <Stamp x={540} y={560} t={t} at={T.all} text="100% HEAD" color={C.yellow} size={110} tint="rgba(255,216,77,0.10)" />
       </Overlay>

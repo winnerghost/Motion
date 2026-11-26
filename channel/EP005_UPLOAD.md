@@ -1,6 +1,6 @@
 # FACT #003 · PART 2 — "What if you had no head?"
 
-Reply to the Instagram comment on the voice film: *"what if we don't have head"*.
+Reply to @en.zai's Instagram comment on the voice film: *"What if I don't have a head?"*
 File: `out/EP005-no-head-reply.mp4` (1080×1920, 60 fps, ~38 s, -14 LUFS)
 
 ## YouTube Shorts
@@ -9,7 +9,7 @@ File: `out/EP005-no-head-reply.mp4` (1080×1920, 60 fps, ~38 s, -14 LUFS)
 What If You Had No Head? 😳 #shorts
 
 **Description**
-A viewer asked: what if we didn't have a head? 🤔
+@en.zai asked: "What if I don't have a head?" 🤔
 
 Problem 1: your ears are in your head. So you'd hear… nothing.
 Problem 2: your voice doesn't even start in your head. It starts in your NECK, where two tiny vocal folds buzz over a hundred times a second. Your throat, mouth and nose shape that buzz into words.
@@ -27,12 +27,12 @@ Got a weirder question? Comment it. It might be the next episode.
 #science #facts #voice #anatomy #pipexplains #shorts
 
 **Pinned comment**
-Thanks for the question! 🙌 What should Pip take off next? 👀 Drop your weirdest "what if" below 👇
+Thanks for the question, @en.zai! 🙌 What should Pip take off next? 👀 Drop your weirdest "what if" below 👇
 
 ## Instagram Reels
 
 **Caption**
-You asked: what if we didn't have a head? 🤯
+@en.zai asked: "What if I don't have a head?" 🤯 So we found out.
 Your ears would be gone… and your voice would turn into a buzz. 🐝
 The buzz you hear is Pip's real voice with the head digitally removed.
 Got a weirder question? Comment it 👇
