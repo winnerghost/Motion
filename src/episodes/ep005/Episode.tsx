@@ -487,9 +487,11 @@ const CUES: Cue[] = [
   [T.nobody - 0.15, 'whoosh-down', 0.3],
 ];
 
-export const Episode005: React.FC = () => {
-  const frame = useCurrentFrame();
-  const t = frame / FPS;
+/** coverAt: render a single clean frame at that second (no captions, no audio) for the cover image. */
+export const Episode005: React.FC<{coverAt?: number}> = ({coverAt}) => {
+  const current = useCurrentFrame();
+  const t = coverAt ?? current / FPS;
+  const frame = Math.round(t * FPS);
   const quiet = inWin(t, QUIET, 0.25);
   const lab = inWin(t, [T.okay, T.hey2], 0.4);
   return (
@@ -500,9 +502,9 @@ export const Episode005: React.FC = () => {
       <ShotHello t={t} />
       <ShotKazoo t={t} />
       <TitleChip t={t} episode="FACT #003 · PART 2" line1="WHAT IF YOU HAD" line2="NO HEAD?" />
-      <Captions t={t} words={words} chunks={chunks} emphasis={['head', 'nothing', 'neck', 'folds', 'buzz', 'bzzzt', 'kazoo', 'you']} />
+      {coverAt === undefined && <Captions t={t} words={words} chunks={chunks} emphasis={['head', 'nothing', 'neck', 'folds', 'buzz', 'bzzzt', 'kazoo', 'you']} />}
       <Grain frame={frame} />
-      <SoundDesign
+      {coverAt === undefined && <SoundDesign
         vo="episodes/ep005/vo.wav"
         env={env}
         end={END}
@@ -510,7 +512,7 @@ export const Episode005: React.FC = () => {
         voVolume={(tt) => 1 - inWin(tt, D1)}
         layers={[{src: 'episodes/ep005/vo_buzz.wav', volume: (tt) => inWin(tt, D1)}]}
         musicMul={(tt) => (1 - inWin(tt, QUIET, 0.12)) * (1 - 0.85 * inWin(tt, D1, 0.15))}
-      />
+      />}
     </AbsoluteFill>
   );
 };

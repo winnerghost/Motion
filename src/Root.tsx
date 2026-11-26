@@ -22,6 +22,7 @@ export const Root: React.FC = () => (
     <Composition id="EP003-wombat-cubes" component={Episode003} durationInFrames={EP003_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP004-recorded-voice" component={Episode004} durationInFrames={EP004_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP005-no-head-reply" component={Episode005} durationInFrames={EP005_DURATION} fps={FPS} width={W} height={H} />
+    <Composition id="EP005-cover" component={Episode005} defaultProps={{coverAt: 9.3}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="PipSheet" component={PipSheet} durationInFrames={120} fps={FPS} width={W} height={H} />
     <Composition id="WombatSheet" component={WombatSheet} durationInFrames={60} fps={FPS} width={W} height={H} />
     <Composition id="Web-Hello" component={ClipHello} durationInFrames={8 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />
