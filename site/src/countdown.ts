@@ -1,12 +1,18 @@
 import {$$, reduced} from './core';
 
-/* New films go out every day at 7:00 PM India time (13:30 UTC). Change here if the schedule moves. */
-export const RELEASE_UTC = {h: 13, m: 30};
+/* Two new films every day: 1:00 PM and 7:00 PM India time (07:30 and 13:30 UTC). Change here if the schedule moves. */
+export const RELEASES_UTC = [
+  {h: 7, m: 30},
+  {h: 13, m: 30},
+];
 
 export function nextRelease(now = new Date()) {
-  const t = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), RELEASE_UTC.h, RELEASE_UTC.m));
-  if (t.getTime() <= now.getTime()) t.setUTCDate(t.getUTCDate() + 1);
-  return t;
+  const next = RELEASES_UTC.map(({h, m}) => {
+    const t = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), h, m));
+    if (t.getTime() <= now.getTime()) t.setUTCDate(t.getUTCDate() + 1);
+    return t;
+  });
+  return next.reduce((a, b) => (b.getTime() < a.getTime() ? b : a));
 }
 
 /* every .countdown shows HH:MM:SS with digits that roll as they change */
