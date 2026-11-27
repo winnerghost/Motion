@@ -8,6 +8,7 @@ import {Avatar, Banner} from './brand/Brand';
 import {PipCutout} from './brand/PipCutout';
 import {LongMyths, LF01_DURATION} from './longform/lf01/Episode';
 import {LFPS, LW, LH} from './longform/kit';
+import {LF01Thumb} from './longform/lf01/Thumb';
 import {Episode001, EP001_DURATION} from './episodes/ep001/Episode';
 import {Episode002, EP002_DURATION} from './episodes/ep002/Episode';
 import {Episode003, EP003_DURATION} from './episodes/ep003/Episode';
@@ -27,6 +28,7 @@ export const Root: React.FC = () => (
     <Composition id="EP005-no-head-reply" component={Episode005} durationInFrames={EP005_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP005-cover" component={Episode005} defaultProps={{coverAt: 9.3}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="LF01-10-myths" component={LongMyths} durationInFrames={LF01_DURATION} fps={LFPS} width={LW} height={LH} />
+    <Composition id="LF01-thumbnail" component={LF01Thumb} durationInFrames={1} fps={LFPS} width={1280} height={720} />
     <Composition id="PipSheet" component={PipSheet} durationInFrames={120} fps={FPS} width={W} height={H} />
     <Composition id="WombatSheet" component={WombatSheet} durationInFrames={60} fps={FPS} width={W} height={H} />
     <Composition id="Web-Hello" component={ClipHello} durationInFrames={8 * WEB_FPS} fps={WEB_FPS} width={1080} height={1080} />
