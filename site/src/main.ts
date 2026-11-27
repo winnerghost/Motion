@@ -9,6 +9,13 @@ import {answerCard, toFile, shareFile} from './share';
 import {SECRETS} from './facts';
 
 const FILMS: Record<string, {meta: string; title: string; desc: string; src: string; poster: string}> = {
+  ep006: {
+    meta: 'No. 004 · Physics · 0:36',
+    title: 'Are bananas radioactive?',
+    desc: 'Yes, a little: about 15 potassium-40 atoms decay inside a banana every second. The twist? Thousands decay inside you.',
+    src: '/media/ep006.mp4',
+    poster: '/media/ep006.jpg',
+  },
   ep004: {
     meta: 'No. 003 · Acoustics · 0:35',
     title: 'Why does your voice sound different in recordings?',
