@@ -9,6 +9,13 @@ import {answerCard, toFile, shareFile} from './share';
 import {SECRETS} from './facts';
 
 const FILMS: Record<string, {meta: string; title: string; desc: string; src: string; poster: string}> = {
+  ep007: {
+    meta: 'No. 005 · Physiology · 0:36',
+    title: 'Why do fingers wrinkle in water?',
+    desc: 'Not water soaking in: your nerves shrink the blood vessels in your fingertips. The folds might be built-in rain tires for grip.',
+    src: '/media/ep007.mp4',
+    poster: '/media/ep007.jpg',
+  },
   ep006: {
     meta: 'No. 004 · Physics · 0:36',
     title: 'Are bananas radioactive?',
