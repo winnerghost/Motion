@@ -31,7 +31,7 @@ export const Root: React.FC = () => (
     <Composition id="EP005-no-head-reply" component={Episode005} durationInFrames={EP005_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP006-bananas" component={Episode006} durationInFrames={EP006_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP007-fingers" component={Episode007} durationInFrames={EP007_DURATION} fps={FPS} width={W} height={H} />
-    <Composition id="EP007-cover" component={Episode007} defaultProps={{coverAt: 3.0}} durationInFrames={1} fps={FPS} width={W} height={H} />
+    <Composition id="EP007-cover" component={Episode007} defaultProps={{coverAt: 2.62}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="EP006-cover" component={Episode006} defaultProps={{coverAt: 1.75}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="EP005-cover" component={Episode005} defaultProps={{coverAt: 9.3}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="LF01-10-myths" component={LongMyths} durationInFrames={LF01_DURATION} fps={LFPS} width={LW} height={LH} />
