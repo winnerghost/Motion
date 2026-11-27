@@ -6,6 +6,7 @@ import {ClipHello, ClipMachine, ClipSleep, WEB_FPS} from './web/WebClips';
 import {LuxHero, LuxHost, LuxOg, LUX_FPS} from './web/LuxClips';
 import {Avatar, Banner} from './brand/Brand';
 import {PipCutout} from './brand/PipCutout';
+import {Brain10, MythStamp, PipPoseStill} from './brand/Ingredients';
 import {LongMyths, LF01_DURATION} from './longform/lf01/Episode';
 import {LFPS, LW, LH} from './longform/kit';
 import {LF01Thumb} from './longform/lf01/Thumb';
@@ -49,6 +50,13 @@ export const Root: React.FC = () => (
       width={1080}
       height={1920}
     />
+    <Composition id="Ingredient-Pip-shocked" component={PipPoseStill} defaultProps={{pose: 'shocked'}} durationInFrames={1} fps={FPS} width={1080} height={1920} />
+    <Composition id="Ingredient-Pip-pointing" component={PipPoseStill} defaultProps={{pose: 'pointing'}} durationInFrames={1} fps={FPS} width={1080} height={1920} />
+    <Composition id="Ingredient-Pip-skeptical" component={PipPoseStill} defaultProps={{pose: 'skeptical'}} durationInFrames={1} fps={FPS} width={1080} height={1920} />
+    <Composition id="Ingredient-Pip-happy" component={PipPoseStill} defaultProps={{pose: 'happy'}} durationInFrames={1} fps={FPS} width={1080} height={1920} />
+    <Composition id="Ingredient-Pip-worried" component={PipPoseStill} defaultProps={{pose: 'worried'}} durationInFrames={1} fps={FPS} width={1080} height={1920} />
+    <Composition id="Ingredient-MythStamp" component={MythStamp} durationInFrames={1} fps={FPS} width={1400} height={800} />
+    <Composition id="Ingredient-Brain10" component={Brain10} durationInFrames={1} fps={FPS} width={1200} height={700} />
     <Composition id="Avatar" component={Avatar} durationInFrames={1} fps={FPS} width={1080} height={1080} />
     <Composition id="Banner" component={Banner} durationInFrames={1} fps={FPS} width={2560} height={1440} />
     <Composition id="BannerSafeArea" component={Banner} defaultProps={{showSafeArea: true}} durationInFrames={1} fps={FPS} width={2560} height={1440} />
