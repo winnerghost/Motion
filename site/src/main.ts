@@ -8,6 +8,44 @@ import {initCountdowns} from './countdown';
 import {answerCard, toFile, shareFile} from './share';
 import {SECRETS} from './facts';
 
+/* ================================================================== */
+/* Scheduled releases                                                   */
+/* A film card or index entry with data-release="<ISO time>" only      */
+/* counts as released from that moment; a "coming soon" stand-in with  */
+/* data-until="<same time>" shows until then. Runs before anything     */
+/* else reads the DOM, so the reel, counters and menu see the result.  */
+/* ================================================================== */
+(() => {
+  const now = Date.now();
+  const due = (iso?: string) => !!iso && Date.parse(iso) <= now;
+  document.querySelectorAll<HTMLElement>('[data-release]').forEach((el) => {
+    const on = due(el.dataset.release);
+    if (el.classList.contains('q')) {
+      el.dataset.status = on ? 'released' : 'upcoming';
+      const label = el.querySelector('.q__status');
+      if (label) label.textContent = on ? 'Released' : 'Upcoming';
+    } else if (!on) el.remove();
+  });
+  document.querySelectorAll<HTMLElement>('[data-until]').forEach((el) => {
+    if (due(el.dataset.until)) el.remove();
+  });
+  const released = Array.from(document.querySelectorAll<HTMLElement>('.film[data-film]'));
+  released.forEach((f, i) => {
+    const badge = f.querySelector('.film__badge');
+    if (i === 0 && !badge) {
+      const b = document.createElement('span');
+      b.className = 'film__badge';
+      b.textContent = 'New';
+      f.querySelector('.film__shade')?.before(b);
+    } else if (i > 0) badge?.remove();
+  });
+  const poster = released[0]?.querySelector('video')?.getAttribute('poster');
+  const menuFilms = document.querySelector<HTMLElement>('.menu__list a[href="#films"]');
+  if (poster && menuFilms) menuFilms.dataset.preview = poster;
+  const count = document.querySelector('.films__count');
+  if (count) count.innerHTML = `<b>01</b> / ${String(document.querySelectorAll('.film').length).padStart(2, '0')}`;
+})();
+
 const FILMS: Record<string, {meta: string; title: string; desc: string; src: string; poster: string}> = {
   ep008: {
     meta: 'No. 006 · Physiology · 0:36',
