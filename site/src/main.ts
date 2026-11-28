@@ -9,6 +9,13 @@ import {answerCard, toFile, shareFile} from './share';
 import {SECRETS} from './facts';
 
 const FILMS: Record<string, {meta: string; title: string; desc: string; src: string; poster: string}> = {
+  ep008: {
+    meta: 'No. 006 · Physiology · 0:36',
+    title: 'Pinch your nose and try to hum',
+    desc: 'Go on, try it. It stops after a second or two, because every hum you make needs air to leave through your nose.',
+    src: '/media/ep008.mp4',
+    poster: '/media/ep008.jpg',
+  },
   ep007: {
     meta: 'No. 005 · Physiology · 0:36',
     title: 'Why do fingers wrinkle in water?',

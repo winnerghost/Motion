@@ -17,6 +17,7 @@ import {Episode004, EP004_DURATION} from './episodes/ep004/Episode';
 import {Episode005, EP005_DURATION} from './episodes/ep005/Episode';
 import {Episode006, EP006_DURATION} from './episodes/ep006/Episode';
 import {Episode007, EP007_DURATION} from './episodes/ep007/Episode';
+import {Episode008, EP008_DURATION} from './episodes/ep008/Episode';
 import {loadFonts} from './lib/theme';
 import {FPS, W, H} from './lib/anim';
 
@@ -30,6 +31,8 @@ export const Root: React.FC = () => (
     <Composition id="EP004-recorded-voice" component={Episode004} durationInFrames={EP004_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP005-no-head-reply" component={Episode005} durationInFrames={EP005_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP006-bananas" component={Episode006} durationInFrames={EP006_DURATION} fps={FPS} width={W} height={H} />
+    <Composition id="EP008-hum" component={Episode008} durationInFrames={EP008_DURATION} fps={FPS} width={W} height={H} />
+    <Composition id="EP008-cover" component={Episode008} defaultProps={{coverAt: 6.9}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="EP007-fingers" component={Episode007} durationInFrames={EP007_DURATION} fps={FPS} width={W} height={H} />
     <Composition id="EP007-cover" component={Episode007} defaultProps={{coverAt: 2.62}} durationInFrames={1} fps={FPS} width={W} height={H} />
     <Composition id="EP006-cover" component={Episode006} defaultProps={{coverAt: 1.75}} durationInFrames={1} fps={FPS} width={W} height={H} />
